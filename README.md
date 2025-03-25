@@ -14,6 +14,8 @@ O objetivo deste teste técnico é avaliar suas habilidades no desenvolvimento d
 - Comportamentos esperados para a tela:
   - Em estado de loading os widgets devem exibir um shimmer no lugar dos dados;
   - A tela deve ter um scroll único de forma geral, não sendo permitido a existência de scrolls aninhados;
+  - A tela deve suportar o gesto 'puxar para atualizar' (pull-to-refresh). Ao realizar esse gesto, os dados exibidos na tela devem ser recarregados, buscando as informações mais recentes do servidor.
+  - A interface da tela deve se adaptar automaticamente aos campos de filtro retornados pela API. Alterações nos campos de filtro na API devem refletir imediatamente no app, sem necessidade da publicação de uma nova release.
 
 ## Boas Práticas
 Para garantir um código bem estruturado e manutenível, siga as seguintes diretrizes:
