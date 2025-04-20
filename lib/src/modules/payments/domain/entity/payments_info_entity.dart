@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'entity.dart';
 
 abstract class PaymentsInfoEntity extends Equatable {
-  final List<PaymentsScheduledEntity> paymentsScheduled;
+  final List<PaymentsScheduleEntity> paymentsScheduled;
   final List<PaymentsSummaryEntity> summary;
   final List<PaymentsTransactionFilterEntity> transactionFilter;
   final List<PaymentsTransactionsEntity> transactions;
@@ -16,5 +16,10 @@ abstract class PaymentsInfoEntity extends Equatable {
   });
 
   @override
-  List<Object> get props => [paymentsScheduled, summary, transactionFilter, transactions];
+  List<Object> get props => [
+    paymentsScheduled,
+    summary,
+    transactionFilter,
+    transactions,
+  ];
 }

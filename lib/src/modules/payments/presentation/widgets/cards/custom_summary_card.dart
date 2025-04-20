@@ -1,0 +1,106 @@
+import 'package:base_project/src/core/base/constants/app_colors.dart';
+import 'package:base_project/src/core/base/constants/app_text_styles.dart';
+import 'package:base_project/src/core/utils/json_helper.dart';
+import 'package:base_project/src/modules/payments/presentation/bloc/payments_state.dart';
+import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../../domain/entity/payments_summary_entity.dart';
+
+class CustomSummaryCards extends StatelessWidget {
+  final PaymentsState state;
+  // final List<PaymentsSummaryEntity>? summaries;
+
+  const CustomSummaryCards({
+    required this.state,
+    // this.summaries,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (state is PaymentsInitial || state is PaymentsError) {
+      return const SizedBox.shrink();
+    }
+
+    final summaries = state is PaymentsSuccess
+        ? (state as PaymentsSuccess).paymentsInfo.summary
+        : JsonHelper.getMockSummariesFromJson();
+
+
+    return SizedBox(
+      height: 130,
+      child: ListView.separated(
+        padding: const EdgeInsets.all(16),
+        scrollDirection: Axis.horizontal,
+        itemCount: summaries.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 12),
+        itemBuilder: (_, index) {
+          return state is PaymentsLoading
+              ? _buildSkeletonCard(summaries[index])
+              : _buildContentCard(summaries[index]);
+        },
+      ),
+    );
+  }
+
+  Widget _buildContentCard(PaymentsSummaryEntity summary) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Container(
+        width: 150,
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              summary.label,
+              style: AppTextStyles.get12w400(AppColors.grayFont),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              summary.value.toStringAsFixed(2),
+              style: AppTextStyles.get16w600(AppColors.blackFont),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSkeletonCard(PaymentsSummaryEntity summary) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Container(
+        width: 150,
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(summary.label, style: AppTextStyles.get12w400()),
+            _shimmerBox(height: 16, width: 100),
+            const SizedBox(height: 8),
+            _shimmerBox(height: 20, width: 80),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _shimmerBox({required double height, required double width}) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade100,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(6),
+        ),
+      ),
+    );
+  }
+}

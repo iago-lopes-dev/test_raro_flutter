@@ -1,7 +1,7 @@
 import 'package:base_project/src/core/core.dart';
 import 'package:base_project/src/modules/payments/domain/domain.dart';
 
-class PaymentsScheduledModel extends PaymentsScheduledEntity {
+class PaymentsScheduledModel extends PaymentsScheduleEntity {
   const PaymentsScheduledModel({
     required super.paymentDate,
     required super.principal,

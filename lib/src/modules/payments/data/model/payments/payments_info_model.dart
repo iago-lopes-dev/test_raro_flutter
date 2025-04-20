@@ -7,7 +7,7 @@ class PaymentsInfoModel extends PaymentsInfoEntity {
         paymentsScheduled:
             json['paymentsScheduled'] != null
                 ? json['paymentsScheduled']
-                    .map<PaymentsScheduledEntity>((json) => PaymentsScheduledModel.fromJson(json))
+                    .map<PaymentsScheduleEntity>((json) => PaymentsScheduledModel.fromJson(json))
                     .toList()
                 : [],
         transactionFilter:

@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 
+import 'modules/payments/presentation/payments/payments_transaction_page.dart';
+
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF232F69))),
-      home: const PaymentsTransactionsPage(),
+      debugShowCheckedModeBanner: false,
+      title: 'Test of Iago',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF232F69)),
+        useMaterial3: true,
+      ),
+      home: const PaymentsTransactionPage(),
     );
-  }
-}
-
-class PaymentsTransactionsPage extends StatelessWidget {
-  const PaymentsTransactionsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Container(color: Color(0xFF232F69)));
   }
 }
