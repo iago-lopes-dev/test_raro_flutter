@@ -1,7 +1,7 @@
-import 'package:base_project/src/core/utils/mappers/payments_schedule_mapper.dart';
-import 'package:base_project/src/core/utils/mappers/payments_summary_mapper.dart';
-import 'package:base_project/src/core/utils/mappers/payments_transaction_header_mapper.dart';
-import 'package:base_project/src/core/utils/mappers/payments_transaction_mapper.dart';
+import 'package:project_by_iago/src/core/utils/mappers/payments_schedule_mapper.dart';
+import 'package:project_by_iago/src/core/utils/mappers/payments_summary_mapper.dart';
+import 'package:project_by_iago/src/core/utils/mappers/payments_transaction_header_mapper.dart';
+import 'package:project_by_iago/src/core/utils/mappers/payments_transaction_mapper.dart';
 
 import '../../modules/payments/data/model/payments/payments.dart';
 import '../../modules/payments/domain/entity/payments_schedule_entity.dart';

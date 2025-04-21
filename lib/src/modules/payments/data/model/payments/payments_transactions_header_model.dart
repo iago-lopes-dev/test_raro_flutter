@@ -1,4 +1,4 @@
-import 'package:base_project/src/modules/payments/domain/domain.dart';
+import 'package:project_by_iago/src/modules/payments/domain/domain.dart';
 
 class PaymentsTransactionHeadersModel extends PaymentsTransactionFilterEntity {
   const PaymentsTransactionHeadersModel({required super.key, required super.label, required super.isDefault});

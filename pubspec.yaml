@@ -1,5 +1,5 @@
-name: base_project
-description: "A new Flutter project."
+name: project_by_iago
+description: "A Flutter project by iago Lopes."
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -23,12 +23,22 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: ^0.14.3
   flutter_lints: ^5.0.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/raro_labs_logo.png"
+  adaptive_icon_foreground: "assets/images/raro_labs_logo.png"
+  adaptive_icon_background: "#FFFFFF"
 
 flutter:
   uses-material-design: true
   assets:
     - assets/fonts/
+    - assets/images/
   fonts:
     - family: Lato
       fonts:

@@ -1,4 +1,4 @@
-import 'package:base_project/src/modules/payments/domain/entity/payments_info_entity.dart';
+import 'package:project_by_iago/src/modules/payments/domain/entity/payments_info_entity.dart';
 import '../../infra/mock/mock.dart';
 import '../model/payments/payments.dart';
 import 'payments_datasource.dart';

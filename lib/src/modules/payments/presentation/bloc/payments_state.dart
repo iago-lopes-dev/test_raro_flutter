@@ -1,4 +1,4 @@
-import 'package:base_project/src/modules/payments/data/data.dart';
+import 'package:project_by_iago/src/modules/payments/data/data.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../domain/entity/payments_info_entity.dart';

@@ -1,5 +1,5 @@
-import 'package:base_project/src/core/utils/json_helper.dart';
-import 'package:base_project/src/modules/payments/presentation/bloc/payments_state.dart';
+import 'package:project_by_iago/src/core/utils/json_helper.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 
 import '../../modules/payments/domain/entity/payments_transactions_entity.dart';
 import '../../modules/payments/domain/entity/payments_transactions_filter_entity.dart';

@@ -1,6 +1,6 @@
-import 'package:base_project/src/core/core.dart';
-import 'package:base_project/src/modules/payments/data/data.dart';
-import 'package:base_project/src/modules/payments/domain/domain.dart';
+import 'package:project_by_iago/src/core/core.dart';
+import 'package:project_by_iago/src/modules/payments/data/data.dart';
+import 'package:project_by_iago/src/modules/payments/domain/domain.dart';
 import 'package:dartz/dartz.dart';
 
 class PaymentsRepositoryImpl implements PaymentsRepository {

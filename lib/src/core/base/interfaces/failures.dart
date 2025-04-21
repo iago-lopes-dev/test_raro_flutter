@@ -1,4 +1,4 @@
-import 'package:base_project/src/core/base/constants/app_constants.dart';
+import 'package:project_by_iago/src/core/base/constants/app_constants.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {

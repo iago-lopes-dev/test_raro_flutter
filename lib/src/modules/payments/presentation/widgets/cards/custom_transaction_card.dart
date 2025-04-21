@@ -1,6 +1,6 @@
-import 'package:base_project/src/core/base/constants/app_colors.dart';
-import 'package:base_project/src/core/base/constants/app_text_styles.dart';
-import 'package:base_project/src/core/utils/adapters/transaction_card_adapter.dart';
+import 'package:project_by_iago/src/core/base/constants/app_colors.dart';
+import 'package:project_by_iago/src/core/base/constants/app_text_styles.dart';
+import 'package:project_by_iago/src/core/utils/adapters/transaction_card_adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

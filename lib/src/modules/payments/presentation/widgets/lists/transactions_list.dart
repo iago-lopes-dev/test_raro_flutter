@@ -1,7 +1,7 @@
-import 'package:base_project/src/core/base/constants/app_text_styles.dart';
-import 'package:base_project/src/core/utils/payments_transaction_helper.dart';
-import 'package:base_project/src/modules/payments/presentation/bloc/payments_state.dart';
-import 'package:base_project/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart';
+import 'package:project_by_iago/src/core/base/constants/app_text_styles.dart';
+import 'package:project_by_iago/src/core/utils/payments_transaction_helper.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/entity/payments_transactions_entity.dart';

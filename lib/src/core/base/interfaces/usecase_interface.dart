@@ -1,4 +1,4 @@
-import 'package:base_project/src/core/core.dart';
+import 'package:project_by_iago/src/core/core.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
