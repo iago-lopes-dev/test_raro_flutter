@@ -8,14 +8,7 @@ class PaymentsDataSourceImpl implements PaymentsDataSource {
 
   @override
   Future<PaymentsInfoEntity> getPaymentsInfo() async {
-    // if (useMock) {
     return PaymentsInfoModel.fromJson(mockPaymentsJson);
-    // } else {
-    //   return [];
-    // Aqui vai a lógica real — pode ser chamada de API, local ou mock.
-    ///TODO(Ogai): Implementar lógica real
-    // throw UnimplementedError('Ainda não implementado');
-    // Aqui você pode mapear os dados do mock para a entidade PaymentsInfoEntity
-    // }
   }
+  ///TODO(Ogai): Conferir sem mock.
 }

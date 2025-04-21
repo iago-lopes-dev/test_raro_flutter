@@ -15,13 +15,13 @@ class CustomSummaryCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (state is PaymentsInitial || state is PaymentsError) {
+    if (state is PaymentsInitialState || state is PaymentsErrorState) {
       return const SizedBox.shrink();
     }
 
     final summaries =
-        state is PaymentsSuccess
-            ? (state as PaymentsSuccess).paymentsInfo.summary
+        state is PaymentsSuccessState
+            ? (state as PaymentsSuccessState).paymentsInfo.summary
             : JsonHelper.getMockSummariesFromJson();
 
     return SizedBox(
@@ -32,7 +32,7 @@ class CustomSummaryCards extends StatelessWidget {
         itemCount: summaries.length,
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemBuilder: (_, index) {
-          return state is PaymentsLoading
+          return state is PaymentsLoadingState
               ? _buildSkeletonCard(summaries[index])
               : _buildContentCard(summaries[index]);
         },
@@ -45,7 +45,6 @@ class CustomSummaryCards extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Container(
-        // width: 150,
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +69,6 @@ class CustomSummaryCards extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Container(
-        // width: 150,
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

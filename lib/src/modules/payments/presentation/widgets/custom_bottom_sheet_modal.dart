@@ -34,7 +34,7 @@ class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
   void initState() {
     super.initState();
     selected = List.from(
-      (widget.state as PaymentsSuccess).visibleTransactionFields,
+      (widget.state as PaymentsSuccessState).visibleTransactionFields,
     );
   }
 

@@ -1,23 +1,22 @@
+import 'package:base_project/src/modules/payments/presentation/bloc/payments_bloc.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/payments_state.dart';
+import 'package:base_project/src/modules/payments/presentation/bloc/payments_tab_changed_event.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/custom_tap_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomTabSelector extends StatelessWidget {
   final PaymentsState state;
-  final Function(int) onTabChanged;
   final VoidCallback onMorePressed;
 
   const CustomTabSelector({
     required this.state,
-    required this.onTabChanged,
     required this.onMorePressed,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final int selectedTabIndex = state.selectedTabIndex;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
@@ -26,25 +25,37 @@ class CustomTabSelector extends StatelessWidget {
         children: [
           Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomTabButton(
                   title: "SCHEDULE",
-                  isSelected: selectedTabIndex == 0,
-                  onTap: () => onTabChanged(0),
+                  isSelected: state.isScheduleSelected,
+                  onTap:
+                      () => context.read<PaymentsBloc>().add(
+                        PaymentsTabChangedEvent(PaymentsTabEnum.schedule),
+                      ),
                 ),
-                const SizedBox(width: 16),
                 CustomTabButton(
                   title: "TRANSACTIONS",
-                  isSelected: selectedTabIndex == 1,
-                  onTap: () => onTabChanged(1),
+                  isSelected: state.isTransactionsSelected,
+                  onTap:
+                      () => context.read<PaymentsBloc>().add(
+                        PaymentsTabChangedEvent(PaymentsTabEnum.transactions),
+                      ),
                 ),
               ],
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: onMorePressed,
+          Visibility(
+            visible: state.isTransactionsSelected,
+            maintainSize: true,
+            maintainAnimation: true,
+            maintainState: true,
+            child: IconButton(
+              icon: const Icon(Icons.more_vert),
+              onPressed: onMorePressed,
+              tooltip: "More",
+            ),
           ),
         ],
       ),

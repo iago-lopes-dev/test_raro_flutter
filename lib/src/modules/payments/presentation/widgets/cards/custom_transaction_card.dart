@@ -1,6 +1,5 @@
 import 'package:base_project/src/core/base/constants/app_colors.dart';
-import 'package:base_project/src/core/base/constants/app_text_styles.dart'
-    show AppTextStyles;
+import 'package:base_project/src/core/base/constants/app_text_styles.dart';
 import 'package:base_project/src/core/utils/adapters/transaction_card_adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -40,29 +39,24 @@ class CustomTransactionCard extends StatelessWidget {
           visibleFields.map((f) => {"key": f.key, "label": f.label}).toList(),
     );
 
-    return Column(
+    return GridView.count(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: 2,
+      childAspectRatio: 3,
       children:
           cardItems.map((item) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text(item["label"] ?? ""), Text(item["value"] ?? "")],
-            );
+            return _buildRow(item["label"] ?? "", item["value"] ?? "");
           }).toList(),
     );
   }
 
   Widget _buildRow(String label, String value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(fontSize: 14, color: Colors.black54),
-        ),
-        Text(
-          value,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
+        Text(label, style: AppTextStyles.get12w400()),
+        Text(value, style: AppTextStyles.get16w400()),
       ],
     );
   }
@@ -70,7 +64,6 @@ class CustomTransactionCard extends StatelessWidget {
   Widget _buildSkeletonCard() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      // children: List.generate(2, (_) => CustomShimmerRow()),
       children: List.generate(2, (_) => _buildShimmerRow()),
     );
   }
@@ -116,11 +109,5 @@ class CustomTransactionCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _formatDate(DateTime date) {
-    return "${date.day.toString().padLeft(2, "0")}/"
-        "${date.month.toString().padLeft(2, "0")}/"
-        "${date.year}";
   }
 }

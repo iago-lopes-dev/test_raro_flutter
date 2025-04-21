@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c832c45-8564-4b78-a267-9a467881b53b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/src/core/utils/adapters/transaction_card_adapter.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/utils/mappers/mapper.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_schedule_mapper.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_summary_mapper.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_transaction_header_mapper.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_transaction_mapper.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/core/utils/payments_transaction_helper.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/change_tab_event.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/app_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/app_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/base/constants/app_text_styles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/base/constants/app_text_styles.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/json_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/json_helper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/base/constants/app_colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/base/constants/app_colors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/payments_transaction_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/payments_transaction_helper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/data/datasource/payments_datasource_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/data/datasource/payments_datasource_impl.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/infra/datasource/payments_datasource_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/infra/datasource/payments_datasource_impl.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/change_tab_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_tab_changed_event.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_refreshed_event.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/payments/payments_transaction_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/payments/payments_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/payments/payments_transaction_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/payments/payments_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_schedule_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_schedule_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/payments/payments_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/payments/payments_view.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_bottom_sheet.dart" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_bottom_sheet_modal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_bottom_sheet_modal.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_tab_selector.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_tab_selector.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/schedule_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/schedule_list.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/transactions_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/transactions_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/shimmer_row.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_shimmer_row.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,18 +58,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "iago-lopes-dev"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;iago-lopes-dev&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/iago-lopes-dev/test_raro_flutter",
-    "accountId": "bbd176ce-7e8a-490d-8f49-fc6b486c1e5b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/iago-lopes-dev/test_raro_flutter&quot;,
+    &quot;accountId&quot;: &quot;bbd176ce-7e8a-490d-8f49-fc6b486c1e5b&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -104,6 +99,8 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
     "io.flutter.reload.alreadyRun": "true",
     "kotlin-language-version-configured": "true",
@@ -136,5 +133,16 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
     </layout>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

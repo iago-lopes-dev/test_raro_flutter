@@ -13,12 +13,12 @@ class ScheduleList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentDate = DateTime.now();
-    final bool isLoading = state is PaymentsLoading;
+    final DateTime currentDate = DateTime.now();
+    final bool isLoading = state is PaymentsLoadingState;
 
     final List<PaymentsScheduleEntity> paymentsScheduled =
-        state is PaymentsSuccess
-            ? (state as PaymentsSuccess).paymentsInfo.paymentsScheduled
+        state is PaymentsSuccessState
+            ? (state as PaymentsSuccessState).paymentsInfo.paymentsScheduled
             : JsonHelper.getMockScheduledFromJson();
 
     final PaymentsScheduleEntity nextPaymentItem = paymentsScheduled.reduce(
@@ -34,28 +34,26 @@ class ScheduleList extends StatelessWidget {
               : scheduledB,
     );
 
-    if (state is PaymentsInitial) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-        child: Text(
-          "Once your loan is booked your payment schedule will appear here. This process may take 1-2 business days.",
-          textAlign: TextAlign.center,
-          style: AppTextStyles.get14w400italic(),
-        ),
-      );
-    }
-
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      itemCount: paymentsScheduled.length,
-      itemBuilder: (_, index) {
-        final isNextPayment = paymentsScheduled[index] == nextPaymentItem;
-        return CustomScheduleCard(
-          schedule: paymentsScheduled[index],
-          isLoading: isLoading,
-          isNextPayment: isNextPayment,
+    return state.paymentsInfo.paymentsScheduled.isEmpty
+        ? Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+          child: Text(
+            "Once your loan is booked your payment schedule will appear here. This process may take 1-2 business days.",
+            textAlign: TextAlign.center,
+            style: AppTextStyles.get14w400italic(),
+          ),
+        )
+        : ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          itemCount: paymentsScheduled.length,
+          itemBuilder: (_, index) {
+            final isNextPayment = paymentsScheduled[index] == nextPaymentItem;
+            return CustomScheduleCard(
+              schedule: paymentsScheduled[index],
+              isLoading: isLoading,
+              isNextPayment: isNextPayment,
+            );
+          },
         );
-      },
-    );
   }
 }

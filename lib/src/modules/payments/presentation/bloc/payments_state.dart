@@ -1,54 +1,83 @@
+import 'package:base_project/src/modules/payments/data/data.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../domain/entity/payments_info_entity.dart';
 import '../../domain/entity/payments_transactions_filter_entity.dart';
 
 abstract class PaymentsState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
-
-class PaymentsInitial extends PaymentsState {}
-
-class PaymentsLoading extends PaymentsState {}
-
-class PaymentsSuccess extends PaymentsState {
   final PaymentsInfoEntity paymentsInfo;
   final List<PaymentsTransactionFilterEntity> visibleTransactionFields;
-  final int selectedTabIndex;
+  final PaymentsTabEnum selectedTabEnum;
 
-  PaymentsSuccess({
+  const PaymentsState({
     required this.paymentsInfo,
     required this.visibleTransactionFields,
-    this.selectedTabIndex = 0, // padrão
+    required this.selectedTabEnum,
   });
 
   @override
-  List<Object?> get props => [paymentsInfo, visibleTransactionFields, selectedTabIndex];
+  List<Object?> get props => [
+    paymentsInfo,
+    visibleTransactionFields,
+    selectedTabEnum,
+  ];
+}
 
-  PaymentsSuccess copyWith({
+class PaymentsInitialState extends PaymentsState {
+  PaymentsInitialState()
+    : super(
+        paymentsInfo: PaymentsInfoModel.empty(),
+        visibleTransactionFields: const [],
+        selectedTabEnum: PaymentsTabEnum.schedule,
+      );
+}
+
+class PaymentsLoadingState extends PaymentsState {
+  const PaymentsLoadingState({
+    required super.paymentsInfo,
+    required super.visibleTransactionFields,
+    required super.selectedTabEnum,
+  });
+}
+
+class PaymentsSuccessState extends PaymentsState {
+  const PaymentsSuccessState({
+    required super.paymentsInfo,
+    required super.visibleTransactionFields,
+    required super.selectedTabEnum,
+  });
+  PaymentsSuccessState copyWith({
     PaymentsInfoEntity? paymentsInfo,
     List<PaymentsTransactionFilterEntity>? visibleTransactionFields,
-    int? selectedTabIndex,
+    PaymentsTabEnum? selectedTabEnum,
   }) {
-    return PaymentsSuccess(
+    return PaymentsSuccessState(
       paymentsInfo: paymentsInfo ?? this.paymentsInfo,
-      visibleTransactionFields: visibleTransactionFields ?? this.visibleTransactionFields,
-      selectedTabIndex: selectedTabIndex ?? this.selectedTabIndex,
+      visibleTransactionFields:
+      visibleTransactionFields ?? this.visibleTransactionFields,
+      selectedTabEnum: selectedTabEnum ?? this.selectedTabEnum,
     );
   }
 }
 
-class PaymentsError extends PaymentsState {
+class PaymentsErrorState extends PaymentsState {
   final String message;
 
-  PaymentsError(this.message);
+  PaymentsErrorState({required this.message, required super.selectedTabEnum})
+    : super(
+        paymentsInfo: PaymentsInfoModel.empty(),
+        visibleTransactionFields: const [],
+      );
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [message, selectedTabEnum];
 }
 
-extension PaymentsStateX on PaymentsState {
-  int get selectedTabIndex =>
-      this is PaymentsSuccess ? (this as PaymentsSuccess).selectedTabIndex : 0;
+extension PaymentsStateIndex on PaymentsState {
+  bool get isScheduleSelected => selectedTabEnum == PaymentsTabEnum.schedule;
+  bool get isTransactionsSelected => selectedTabEnum == PaymentsTabEnum.transactions;
+
+  int get selectedTabIndex => PaymentsTabEnum.values.indexOf(selectedTabEnum);
 }
+
+enum PaymentsTabEnum { schedule, transactions }

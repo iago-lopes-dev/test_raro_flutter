@@ -2,15 +2,14 @@ import 'dart:async';
 
 import 'package:base_project/src/core/base/constants/app_colors.dart';
 import 'package:base_project/src/core/di/payments_module_injector.dart';
-import 'package:base_project/src/modules/payments/presentation/bloc/change_tab_event.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/payments_bloc.dart';
-import 'package:base_project/src/modules/payments/presentation/bloc/payments_event.dart';
+import 'package:base_project/src/modules/payments/presentation/bloc/payments_refreshed_event.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/custom_bottom_sheet_modal.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/custom_tab_selector.dart';
-import 'package:base_project/src/modules/payments/presentation/widgets/lists/transactions_list.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/lists/schedule_list.dart';
+import 'package:base_project/src/modules/payments/presentation/widgets/lists/transactions_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,8 +43,7 @@ class _PaymentsViewState extends State<PaymentsView> {
         return Scaffold(
           backgroundColor: AppColors.white,
           appBar: _buildAppBar(state),
-          body: state is PaymentsSuccess
-              ? Column(
+          body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomSummaryCards(state: state),
@@ -53,11 +51,6 @@ class _PaymentsViewState extends State<PaymentsView> {
               const SizedBox(height: 16),
               CustomTabSelector(
                 state: state,
-                onTabChanged: (index) {
-                  context
-                      .read<PaymentsBloc>()
-                      .add(ChangeTabEvent(index));
-                },
                 onMorePressed: () => _showBottomSheet(context, state),
               ),
               const SizedBox(height: 8),
@@ -68,8 +61,7 @@ class _PaymentsViewState extends State<PaymentsView> {
                 ),
               ),
             ],
-          )
-              : _buildLoadingOrError(state),
+          ),
         );
       },
     );
@@ -84,7 +76,7 @@ class _PaymentsViewState extends State<PaymentsView> {
       actions: [
         IconButton(
           icon: const Icon(Icons.help_outline, color: AppColors.white),
-          onPressed: () => _showBottomSheet(context, state),
+          onPressed: () {},
         ),
       ],
       systemOverlayStyle: const SystemUiOverlayStyle(
@@ -113,21 +105,10 @@ class _PaymentsViewState extends State<PaymentsView> {
     );
   }
 
-  Widget _buildTabContent(PaymentsSuccess state) {
-    final tabIndex = state.selectedTabIndex;
-    return tabIndex == 0
+  Widget _buildTabContent(PaymentsState state) {
+    return state.isScheduleSelected
         ? ScheduleList(state: state)
         : TransactionsList(state: state);
-  }
-
-  Widget _buildLoadingOrError(PaymentsState state) {
-    if (state is PaymentsLoading) {
-      return const Center(child: CircularProgressIndicator());
-    } else if (state is PaymentsError) {
-      return Center(child: Text('Error: ${state.message}'));
-    } else {
-      return const Center(child: Text('Unexpected state.'));
-    }
   }
 
   void _showBottomSheet(BuildContext context, PaymentsState state) async {

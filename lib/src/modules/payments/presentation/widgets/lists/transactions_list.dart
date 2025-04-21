@@ -1,5 +1,4 @@
 import 'package:base_project/src/core/base/constants/app_text_styles.dart';
-import 'package:base_project/src/core/utils/json_helper.dart';
 import 'package:base_project/src/core/utils/payments_transaction_helper.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart';
@@ -15,35 +14,35 @@ class TransactionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isLoading = state is PaymentsLoading;
+    final bool isLoading = state is PaymentsLoadingState;
 
-    final List<PaymentsTransactionFilterEntity> visibleFields = state is PaymentsSuccess ? (state as PaymentsSuccess).visibleTransactionFields : [];
+    final List<PaymentsTransactionFilterEntity> visibleFields =
+        state is PaymentsSuccessState
+            ? (state as PaymentsSuccessState).visibleTransactionFields
+            : [];
 
-    final List<PaymentsTransactionsEntity> listToRender = PaymentsTransactionHelper.getFilteredTransactionsToRender(
-      state: state,
-    );
+    final List<PaymentsTransactionsEntity> listToRender =
+        PaymentsTransactionHelper.getFilteredTransactionsToRender(state: state);
 
-    if (state is PaymentsInitial) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-        child: Text(
-          "Once you begin your payments they will appear here. This process may take 1-2 business days.",
-          textAlign: TextAlign.center,
-          style: AppTextStyles.get14w400italic(),
-        ),
-      );
-    }
-
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      itemCount: listToRender.length,
-      itemBuilder: (_, index) {
-        return CustomTransactionCard(
-          transaction: listToRender[index],
-          visibleFields: visibleFields,
-          isLoading: isLoading,
+    return state.paymentsInfo.transactions.isEmpty
+        ? Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+          child: Text(
+            "Once you begin your payments they will appear here. This process may take 1-2 business days.",
+            textAlign: TextAlign.center,
+            style: AppTextStyles.get14w400italic(),
+          ),
+        )
+        : ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          itemCount: listToRender.length,
+          itemBuilder: (_, index) {
+            return CustomTransactionCard(
+              transaction: listToRender[index],
+              visibleFields: visibleFields,
+              isLoading: isLoading,
+            );
+          },
         );
-      },
-    );
   }
 }
