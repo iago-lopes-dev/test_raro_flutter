@@ -1,8 +1,19 @@
-import 'package:base_project/src/core/di/payments_module_injector.dart';
+import 'package:base_project/src/core/base/constants/app_colors.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/payments_bloc.dart';
-import 'package:base_project/src/modules/payments/presentation/payments/payments_view.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:base_project/src/modules/payments/presentation/bloc/payments_refreshed_event.dart';
+import 'package:base_project/src/modules/payments/presentation/bloc/payments_state.dart';
+import 'package:base_project/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart';
+import 'package:base_project/src/modules/payments/presentation/widgets/custom_bottom_sheet_modal.dart';
+import 'package:base_project/src/modules/payments/presentation/widgets/custom_tab_selector.dart';
+import 'package:base_project/src/modules/payments/presentation/widgets/lists/schedule_list.dart';
+import 'package:base_project/src/modules/payments/presentation/widgets/lists/transactions_list.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../data/repository/payment_repository_impl.dart';
+import '../../domain/usecase/get_payments_use_case.dart';
+import '../../infra/datasource/payments_datasource_impl.dart';
 
 class PaymentsPage extends StatefulWidget {
   const PaymentsPage({super.key});
@@ -12,11 +23,123 @@ class PaymentsPage extends StatefulWidget {
 }
 
 class _PaymentsPageState extends State<PaymentsPage> {
+  late final PaymentsBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+
+    bloc = PaymentsBloc(
+      GetPaymentsUseCase(PaymentsRepositoryImpl(PaymentsDatasourceImpl())),
+    );
+
+    bloc.add(FetchPaymentsEvent());
+  }
+
+  @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
+  }
+
+  Future<void> _refresh() async {
+    bloc.add(RefreshPaymentsEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<PaymentsBloc>(),
-      child: const PaymentsView(),
+    return BlocProvider.value(
+      value: bloc,
+      child: BlocBuilder<PaymentsBloc, PaymentsState>(
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: AppColors.white,
+            appBar: _buildAppBar(state),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomSummaryCards(state: state),
+                _buildCallToAction(),
+                const SizedBox(height: 16),
+                CustomTabSelector(
+                  state: state,
+                  onMorePressed: () => _showBottomSheet(context, state),
+                ),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: _refresh,
+                    child: _buildTabContent(state),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
+  }
+
+  PreferredSizeWidget _buildAppBar(PaymentsState state) {
+    return AppBar(
+      backgroundColor: AppColors.blueBackground,
+      elevation: 0,
+      centerTitle: true,
+      title: const Text("Payments", style: TextStyle(color: AppColors.white)),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.help_outline, color: AppColors.white),
+          onPressed: () {},
+        ),
+      ],
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: AppColors.blueBackground,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
+  }
+
+  Widget _buildCallToAction() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text("Do you want to make a payment? "),
+          GestureDetector(
+            onTap: () {},
+            child: const Text(
+              "Click here",
+              style: TextStyle(color: AppColors.green),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTabContent(PaymentsState state) {
+    return state.isScheduleSelected
+        ? ScheduleList(state: state)
+        : TransactionsList(state: state);
+  }
+
+  void _showBottomSheet(BuildContext context, PaymentsState state) async {
+    final selectedFields = await showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      isDismissible: false,
+      context: context,
+      builder: (_) {
+        return CustomBottomSheetModal(
+          title: "Additional information",
+          state: state,
+        );
+      },
+    );
+
+    if (selectedFields != null) {
+      bloc.add(UpdateVisibleTransactionFieldsEvent(selectedFields));
+    }
   }
 }
