@@ -5,17 +5,13 @@ import 'package:base_project/src/modules/payments/presentation/bloc/payments_sta
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../../core/utils/converter_helper.dart';
 import '../../../domain/entity/payments_summary_entity.dart';
 
 class CustomSummaryCards extends StatelessWidget {
   final PaymentsState state;
-  // final List<PaymentsSummaryEntity>? summaries;
 
-  const CustomSummaryCards({
-    required this.state,
-    // this.summaries,
-    super.key,
-  });
+  const CustomSummaryCards({required this.state, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +19,10 @@ class CustomSummaryCards extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final summaries = state is PaymentsSuccess
-        ? (state as PaymentsSuccess).paymentsInfo.summary
-        : JsonHelper.getMockSummariesFromJson();
-
+    final summaries =
+        state is PaymentsSuccess
+            ? (state as PaymentsSuccess).paymentsInfo.summary
+            : JsonHelper.getMockSummariesFromJson();
 
     return SizedBox(
       height: 130,
@@ -49,7 +45,7 @@ class CustomSummaryCards extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Container(
-        width: 150,
+        // width: 150,
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +56,7 @@ class CustomSummaryCards extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              summary.value.toStringAsFixed(2),
+              ConverterHelper.currencyFormatter(summary.value),
               style: AppTextStyles.get16w600(AppColors.blackFont),
             ),
           ],
@@ -74,15 +70,13 @@ class CustomSummaryCards extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Container(
-        width: 150,
+        // width: 150,
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(summary.label, style: AppTextStyles.get12w400()),
-            _shimmerBox(height: 16, width: 100),
-            const SizedBox(height: 8),
-            _shimmerBox(height: 20, width: 80),
+            _shimmerBox(height: 20, width: 100),
           ],
         ),
       ),
@@ -91,13 +85,13 @@ class CustomSummaryCards extends StatelessWidget {
 
   Widget _shimmerBox({required double height, required double width}) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: AppColors.gray,
+      highlightColor: AppColors.grayFont,
       child: Container(
         height: height,
         width: width,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(6),
         ),
       ),

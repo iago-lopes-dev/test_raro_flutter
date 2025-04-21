@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'modules/payments/presentation/payments/payments_transaction_page.dart';
+import 'modules/payments/presentation/payments/payments_page.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -14,7 +14,7 @@ class AppWidget extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF232F69)),
         useMaterial3: true,
       ),
-      home: const PaymentsTransactionPage(),
+      home: const PaymentsPage(),
     );
   }
 }

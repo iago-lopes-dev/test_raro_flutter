@@ -1,22 +1,22 @@
+import "package:base_project/src/core/base/constants/app_colors.dart";
+import "package:base_project/src/core/base/constants/app_text_styles.dart";
+import "package:base_project/src/core/utils/json_helper.dart";
+import "package:base_project/src/modules/payments/presentation/bloc/payments_state.dart";
 import "package:flutter/material.dart";
 
+import "../../domain/entity/payments_transactions_filter_entity.dart";
+
 class CustomBottomSheetModal extends StatefulWidget {
-  final Widget body;
-  final Widget? bottom;
-  final Color? color;
+  final PaymentsState state;
   final String title;
   final EdgeInsets padding;
-  final bool hasBackButton;
-  final VoidCallback? onClose;
+  final Color? color;
 
   const CustomBottomSheetModal({
-    required this.body,
-    this.bottom,
-    this.color,
+    required this.state,
     this.title = "",
     this.padding = const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 20.0),
-    this.hasBackButton = true,
-    this.onClose,
+    this.color,
     super.key,
   });
 
@@ -25,6 +25,19 @@ class CustomBottomSheetModal extends StatefulWidget {
 }
 
 class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
+  late List<PaymentsTransactionFilterEntity> selected;
+
+  final List<PaymentsTransactionFilterEntity> allFields =
+      JsonHelper.getMockTransactionFiltersFromJson();
+
+  @override
+  void initState() {
+    super.initState();
+    selected = List.from(
+      (widget.state as PaymentsSuccess).visibleTransactionFields,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,12 +55,11 @@ class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
           child: Container(
             padding: widget.padding,
             decoration: BoxDecoration(
-              color: widget.color ?? Colors.black,
+              color: widget.color ?? AppColors.white,
               borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(24.0),
-                  topLeft: Radius.circular(
-                    24.0,
-                  )),
+                topRight: Radius.circular(24.0),
+                topLeft: Radius.circular(24.0),
+              ),
             ),
             child: SingleChildScrollView(
               child: Column(
@@ -56,8 +68,33 @@ class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
                   SizedBox.fromSize(size: Size(10, 10)),
                   buildHeader(),
                   SizedBox.fromSize(size: Size(10, 10)),
-                  widget.body,
-                  buildBottom(),
+                  Column(
+                    children:
+                        allFields
+                            .map(
+                              (filter) => CheckboxListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                value: selected.contains(filter),
+                                activeColor: AppColors.green,
+                                checkColor: AppColors.white,
+                                title: Text(
+                                  filter.label,
+                                  style: AppTextStyles.get16w400(),
+                                ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (value == true) {
+                                      selected.add(filter);
+                                    } else {
+                                      selected.remove(filter);
+                                    }
+                                  });
+                                },
+                              ),
+                            )
+                            .toList(),
+                  ),
                 ],
               ),
             ),
@@ -67,45 +104,20 @@ class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
     );
   }
 
-  Widget buildBottom() {
-    return widget.bottom == null
-        ? SizedBox.shrink()
-        : Column(
-      children: [
-        SizedBox.fromSize(size: Size(10, 10)),SizedBox.fromSize(size: Size(10, 10)),
-        widget.bottom!,
-        SizedBox.fromSize(size: Size(10, 10)),
-      ],
-    );
-  }
-
   Widget buildHeader() {
     return Row(
-      mainAxisAlignment: widget.hasBackButton
-          ? MainAxisAlignment.spaceBetween
-          : MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // Visibility(
-        //   visible: widget.hasBackButton,
-        //   child: CustomHoverIconButton(
-        //     image: "arrowLeft",
-        //     iconColor: AppColors.white,
-        //     borderColor: AppColors.grayCharcoal,
-        //     backgroundColor: AppColors.blackEerie,
-        //     iconPadding: const EdgeInsets.all(8),
-        //     onTap: widget.onClose ?? () => Navigator.pop(context),
-        //   ),
-        // ),
         Flexible(
           child: Text(
             widget.title,
             textAlign: TextAlign.center,
-            // style: TextStyle().walkway(size: 20),
+            style: AppTextStyles.get16w600(),
           ),
         ),
-        Visibility(
-          visible: widget.hasBackButton,
-          child: const SizedBox.shrink(),
+        IconButton(
+          icon: Icon(Icons.close, color: AppColors.grayFont),
+          onPressed: () => Navigator.pop(context, selected),
         ),
       ],
     );

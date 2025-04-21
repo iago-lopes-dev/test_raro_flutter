@@ -6,13 +6,13 @@ import 'package:shimmer/shimmer.dart';
 import '../../../domain/entity/payments_schedule_entity.dart';
 
 class CustomScheduleCard extends StatelessWidget {
-  final PaymentsScheduleEntity? schedule;
+  final PaymentsScheduleEntity schedule;
   final bool isLoading;
   final bool isNextPayment;
 
   const CustomScheduleCard({
+    required this.schedule,
     required this.isLoading,
-    this.schedule,
     this.isNextPayment = false,
     super.key,
   });
@@ -22,15 +22,15 @@ class CustomScheduleCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: isLoading ? _buildSkeleton() : _buildContent(),
+        child: isLoading ? _buildSkeletonCard() : _buildContentCard(),
       ),
     );
   }
 
-  Widget _buildContent() {
+  Widget _buildContentCard() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,12 +40,12 @@ class CustomScheduleCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              _formatDate(schedule!.paymentDate),
+              _formatDate(schedule.paymentDate),
               style: AppTextStyles.get16w400(),
             ),
             SizedBox.fromSize(size: const Size(40, 0)),
             Text(
-              "\$ ${schedule!.principal.toString()}",
+              "\$ ${schedule.principal.toString()}",
               style: AppTextStyles.get16w400(),
             ),
           ],
@@ -53,7 +53,7 @@ class CustomScheduleCard extends StatelessWidget {
         isNextPayment
             ? Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.white,
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Padding(
@@ -69,7 +69,7 @@ class CustomScheduleCard extends StatelessWidget {
     );
   }
 
-  Widget _buildSkeleton() {
+  Widget _buildSkeletonCard() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: List.generate(1, (_) => _buildShimmerRow()),
@@ -88,13 +88,13 @@ class CustomScheduleCard extends StatelessWidget {
 
   Widget _shimmerBox({required double width}) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: AppColors.gray,
+      highlightColor: AppColors.grayFont,
       child: Container(
         height: 20,
         width: width,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(6),
         ),
       ),

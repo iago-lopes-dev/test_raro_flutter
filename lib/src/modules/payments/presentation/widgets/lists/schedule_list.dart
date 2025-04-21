@@ -1,73 +1,57 @@
+import 'package:base_project/src/core/base/constants/app_text_styles.dart';
+import 'package:base_project/src/core/utils/json_helper.dart';
+import 'package:base_project/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:base_project/src/modules/payments/presentation/widgets/cards/custom_schedule_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/entity/payments_schedule_entity.dart';
 
 class ScheduleList extends StatelessWidget {
-  final List<PaymentsScheduleEntity> data;
-  final ValueNotifier<int> selectedTabIndex;
-  final bool isLoading;
+  final PaymentsState state;
 
-  const ScheduleList({
-    required this.data,
-    required this.selectedTabIndex,
-    this.isLoading = false,
-    super.key,
-  });
+  const ScheduleList({required this.state, super.key});
 
   @override
   Widget build(BuildContext context) {
     final currentDate = DateTime.now();
-    late PaymentsScheduleEntity nextPaymentItem;
-    if (data.isNotEmpty || !isLoading) {
-      nextPaymentItem = data.reduce(
-        (a, b) =>
-            a.paymentDate
-                        .difference(currentDate)
-                        .abs()
-                        .compareTo(
-                          b.paymentDate.difference(currentDate).abs(),
-                        ) <
-                    0
-                ? a
-                : b,
-      );
-    }
-    ;
+    final bool isLoading = state is PaymentsLoading;
 
-    if (isLoading) {
-      return ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        itemCount: data.isNotEmpty ? data.length : 4,
-        itemBuilder: (_, index) => const CustomScheduleCard(isLoading: true),
-      );
-    }
+    final List<PaymentsScheduleEntity> paymentsScheduled =
+        state is PaymentsSuccess
+            ? (state as PaymentsSuccess).paymentsInfo.paymentsScheduled
+            : JsonHelper.getMockScheduledFromJson();
 
-    if (data.isEmpty) {
+    final PaymentsScheduleEntity nextPaymentItem = paymentsScheduled.reduce(
+      (scheduledA, scheduledB) =>
+          scheduledA.paymentDate
+                      .difference(currentDate)
+                      .abs()
+                      .compareTo(
+                        scheduledB.paymentDate.difference(currentDate).abs(),
+                      ) <
+                  0
+              ? scheduledA
+              : scheduledB,
+    );
+
+    if (state is PaymentsInitial) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
         child: Text(
           "Once your loan is booked your payment schedule will appear here. This process may take 1-2 business days.",
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: const Color(0xFF868C98BF),
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            fontStyle: FontStyle.italic,
-          ),
+          style: AppTextStyles.get14w400italic(),
         ),
       );
     }
 
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      itemCount: data.length,
+      itemCount: paymentsScheduled.length,
       itemBuilder: (_, index) {
-        final item = data[index];
-        final isNextPayment = item == nextPaymentItem;
-
+        final isNextPayment = paymentsScheduled[index] == nextPaymentItem;
         return CustomScheduleCard(
-          schedule: item,
+          schedule: paymentsScheduled[index],
           isLoading: isLoading,
           isNextPayment: isNextPayment,
         );

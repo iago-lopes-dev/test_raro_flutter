@@ -1,7 +1,9 @@
+import 'package:base_project/src/modules/payments/presentation/bloc/change_tab_event.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/payments_event.dart';
 import 'package:base_project/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../domain/entity/payments_transactions_filter_entity.dart';
 import '../../domain/usecase/get_payments_use_case.dart';
 
 class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
@@ -11,9 +13,10 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
     on<FetchPaymentsEvent>(_onLoadPayments);
     on<RefreshPaymentsEvent>(_onLoadPayments);
     on<UpdateVisibleTransactionFieldsEvent>(_onUpdateVisibleFields);
+    on<ChangeTabEvent>(_onChangeTab);
   }
 
-  late List<String> _visibleTransactionFields = [];
+  late List<PaymentsTransactionFilterEntity> _visibleTransactionFields;
 
   Future<void> _onLoadPayments(
     PaymentsEvent event,
@@ -24,12 +27,8 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
     result.fold((failure) => emit(PaymentsError(failure.message)), (
       paymentsInfo,
     ) {
-      final defaultVisibleFields =
-          paymentsInfo.transactionFilter
-              .where((e) => e.isDefault)
-              .map((e) => e.key)
-              .toList();
-      _visibleTransactionFields = defaultVisibleFields;
+      _visibleTransactionFields =
+          paymentsInfo.transactionFilter.where((e) => e.isDefault).toList();
       emit(
         PaymentsSuccess(
           paymentsInfo: paymentsInfo,
@@ -53,6 +52,16 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
           visibleTransactionFields: _visibleTransactionFields,
         ),
       );
+    }
+  }
+
+  Future<void> _onChangeTab(
+    ChangeTabEvent event,
+    Emitter<PaymentsState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is PaymentsSuccess) {
+      emit(currentState.copyWith(selectedTabIndex: event.tabIndex));
     }
   }
 }

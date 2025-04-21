@@ -21,6 +21,15 @@ abstract class AppTextStyles {
     fontFamily: font?.title ?? AppFontStyle.lato.title,
   );
 
+  static TextStyle get14w400italic([Color? color, AppFontStyle? font]) =>
+      TextStyle(
+        fontSize: 14.0,
+        fontWeight: FontWeight.w400,
+        color: color ?? defaultFontColor,
+        fontFamily: font?.title ?? AppFontStyle.lato.title,
+        fontStyle: FontStyle.italic,
+      );
+
   static TextStyle get14w500([Color? color, AppFontStyle? font]) => TextStyle(
     fontSize: 14.0,
     fontWeight: FontWeight.w500,

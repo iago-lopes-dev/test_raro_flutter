@@ -1,12 +1,13 @@
+import 'package:base_project/src/core/base/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-class ShimmerRow extends StatelessWidget {
+class CustomShimmerRow extends StatelessWidget {
   final int itemCount;
   final double height;
   final List<double> widths;
 
-  const ShimmerRow({
+  const CustomShimmerRow({
     this.itemCount = 3,
     this.height = 20,
     this.widths = const [80, 100],
@@ -30,17 +31,16 @@ class ShimmerRow extends StatelessWidget {
       }),
     );
   }
-  ///TODO(Ogai): Conferir esse shimmer nos cards
 
   Widget _shimmerBox(double width) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: AppColors.gray,
+      highlightColor: AppColors.grayFont,
       child: Container(
         height: height,
         width: width,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(8),
         ),
       ),

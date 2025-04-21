@@ -1,57 +1,53 @@
-import 'package:base_project/src/core/base/constants/app_text_styles.dart';
+import 'package:base_project/src/core/base/constants/app_colors.dart';
+import 'package:base_project/src/core/base/constants/app_text_styles.dart'
+    show AppTextStyles;
+import 'package:base_project/src/core/utils/adapters/transaction_card_adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../domain/entity/payments_transactions_entity.dart';
+import '../../../domain/entity/payments_transactions_filter_entity.dart';
 
 class CustomTransactionCard extends StatelessWidget {
-  final PaymentsTransactionsEntity? transactions;
-  final List<String> visibleFields;
+  final PaymentsTransactionsEntity transaction;
+  final List<PaymentsTransactionFilterEntity> visibleFields;
   final bool isLoading;
 
   const CustomTransactionCard({
-    this.transactions,
-    this.visibleFields = const [],
-    this.isLoading = false,
+    required this.transaction,
+    required this.visibleFields,
+    required this.isLoading,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: isLoading ? _buildSkeleton() : _buildContent(),
+        child: isLoading ? _buildSkeletonCard() : _buildContentCard(),
       ),
     );
   }
 
-  Widget _buildContent() {
-    final widgets = <Widget>[];
-
-    if (visibleFields.contains("processDate")) {
-      widgets.add(_buildRow("Process date", _formatDate(transactions!.processDate)));
-      widgets.add(const SizedBox(height: 12));
-    }
-    if (visibleFields.contains("actualPaymentAmount")) {
-      widgets.add(
-        _buildRow(
-          "Amount",
-          "\$${transactions!.actualPaymentAmount.toStringAsFixed(2)}",
-        ),
-      );
-      widgets.add(const SizedBox(height: 12));
-    }
-    if (visibleFields.contains("paymentType")) {
-      widgets.add(_buildRow("Type", transactions!.paymentType));
-    }
+  Widget _buildContentCard() {
+    final cardItems = TransactionCardAdapter.fromTransaction(
+      transaction: transaction.toMap(),
+      visibleFields:
+          visibleFields.map((f) => {"key": f.key, "label": f.label}).toList(),
+    );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: widgets,
+      children:
+          cardItems.map((item) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [Text(item["label"] ?? ""), Text(item["value"] ?? "")],
+            );
+          }).toList(),
     );
   }
 
@@ -71,9 +67,10 @@ class CustomTransactionCard extends StatelessWidget {
     );
   }
 
-  Widget _buildSkeleton() {
+  Widget _buildSkeletonCard() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      // children: List.generate(2, (_) => CustomShimmerRow()),
       children: List.generate(2, (_) => _buildShimmerRow()),
     );
   }
@@ -85,21 +82,21 @@ class CustomTransactionCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Data", style: AppTextStyles.get12w400()),
-              _shimmerBox(width: 140),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Data", style: AppTextStyles.get12w400()),
-              _shimmerBox(width: 140),
-            ],
+          Wrap(
+            children: List.generate(
+              visibleFields.length,
+              (index) => Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    visibleFields[index].label,
+                    style: AppTextStyles.get12w400(),
+                  ),
+                  _shimmerBox(width: 140),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -108,13 +105,13 @@ class CustomTransactionCard extends StatelessWidget {
 
   Widget _shimmerBox({required double width}) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade100,
+      baseColor: AppColors.gray,
+      highlightColor: AppColors.grayFont,
       child: Container(
         height: 24,
         width: width,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(6),
         ),
       ),
@@ -122,8 +119,8 @@ class CustomTransactionCard extends StatelessWidget {
   }
 
   String _formatDate(DateTime date) {
-    return "${date.day.toString().padLeft(2, '0')}/"
-        "${date.month.toString().padLeft(2, '0')}/"
+    return "${date.day.toString().padLeft(2, "0")}/"
+        "${date.month.toString().padLeft(2, "0")}/"
         "${date.year}";
   }
 }
