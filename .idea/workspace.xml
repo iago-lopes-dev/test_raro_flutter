@@ -10,71 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c832c45-8564-4b78-a267-9a467881b53b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/raro_labs_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/core/utils/adapters/schedule_card_adapter.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/kotlin/br/com/exemplo/base_project/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/kotlin/br/com/exemplo/base_project/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/app_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/app_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/base/constants/app_text_styles.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/base/constants/app_text_styles.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/base/interfaces/failures.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/base/interfaces/failures.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/base/interfaces/usecase_interface.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/base/interfaces/usecase_interface.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/json_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/json_helper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_schedule_mapper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_schedule_mapper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_summary_mapper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_summary_mapper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_transaction_header_mapper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_transaction_header_mapper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_transaction_mapper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_transaction_mapper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/payments_transaction_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/payments_transaction_helper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/data/datasource/payments_datasource.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/data/datasource/payments_datasource.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/data/datasource/payments_datasource_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/data/datasource/payments_datasource_impl.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/data/model/payments/payments_info_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/data/model/payments/payments_info_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/data/model/payments/payments_scheduled_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/data/model/payments/payments_scheduled_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/data/model/payments/payments_summary_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/data/model/payments/payments_summary_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/data/model/payments/payments_transactions_header_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/data/model/payments/payments_transactions_header_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/data/model/payments/payments_transactions_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/data/model/payments/payments_transactions_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/data/repository/payment_repository_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/data/repository/payment_repository_impl.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/domain/repository/payment_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/domain/repository/payment_repository.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/domain/usecase/get_payments_use_case.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/domain/usecase/get_payments_use_case.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/infra/datasource/payments_datasource_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/infra/datasource/payments_datasource_impl.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_refreshed_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_event.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_state.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_tab_changed_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_tab_changed_event.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/payments/payments_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/payments/payments_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/payments/payments_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/page/payments_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_schedule_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_schedule_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_bottom_sheet_modal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_bottom_sheet_modal.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_shimmer_row.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_shimmer_row.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_tab_selector.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_tab_selector.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_tap_button.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_tap_button.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/schedule_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/schedule_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/transactions_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/transactions_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,11 +109,11 @@
       <recent name="D:\Repos\test_raro_iago\assets\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Repos\test_raro_iago\lib\src\modules\payments\presentation\page" />
       <recent name="D:\Repos\teste-flutter\lib\src\core\utils\mappers" />
       <recent name="D:\Repos\teste-flutter\lib\src\core\utils" />
       <recent name="D:\Repos\teste-flutter\lib\src\core\utils\helpers" />
       <recent name="D:\Repos\teste-flutter\assets\fonts" />
-      <recent name="D:\Repos\teste-flutter\lib\src\modules\payments\presentation\widgets\cards" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

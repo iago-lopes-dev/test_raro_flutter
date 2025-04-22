@@ -1,6 +1,8 @@
 import 'package:project_by_iago/src/modules/payments/data/data.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../core/base/constants/app_constants.dart';
+import '../../../../core/base/errors/errors.dart';
 import '../../domain/entity/payments_info_entity.dart';
 import '../../domain/entity/payments_transactions_filter_entity.dart';
 
@@ -25,19 +27,20 @@ abstract class PaymentsState extends Equatable {
 
 class PaymentsInitialState extends PaymentsState {
   PaymentsInitialState()
-    : super(
-        paymentsInfo: PaymentsInfoModel.empty(),
-        visibleTransactionFields: const [],
-        selectedTabEnum: PaymentsTabEnum.schedule,
-      );
+      : super(
+    paymentsInfo: PaymentsInfoModel.empty(),
+    visibleTransactionFields: const [],
+    selectedTabEnum: PaymentsTabEnum.schedule,
+  );
 }
 
 class PaymentsLoadingState extends PaymentsState {
-  const PaymentsLoadingState({
-    required super.paymentsInfo,
-    required super.visibleTransactionFields,
-    required super.selectedTabEnum,
-  });
+  PaymentsLoadingState()
+      : super(
+    paymentsInfo: PaymentsInfoModel.empty(),
+    visibleTransactionFields: const [],
+    selectedTabEnum: PaymentsTabEnum.schedule,
+  );
 }
 
 class PaymentsSuccessState extends PaymentsState {
@@ -46,6 +49,7 @@ class PaymentsSuccessState extends PaymentsState {
     required super.visibleTransactionFields,
     required super.selectedTabEnum,
   });
+
   PaymentsSuccessState copyWith({
     PaymentsInfoEntity? paymentsInfo,
     List<PaymentsTransactionFilterEntity>? visibleTransactionFields,
@@ -61,21 +65,32 @@ class PaymentsSuccessState extends PaymentsState {
 }
 
 class PaymentsErrorState extends PaymentsState {
-  final String message;
+  final InfraError? error;
 
-  PaymentsErrorState({required this.message, required super.selectedTabEnum})
-    : super(
-        paymentsInfo: PaymentsInfoModel.empty(),
-        visibleTransactionFields: const [],
-      );
+  PaymentsErrorState({required this.error})
+      : super(
+    paymentsInfo: PaymentsInfoModel.empty(),
+    visibleTransactionFields: const [],
+    selectedTabEnum: PaymentsTabEnum.schedule,
+  );
+
+  String get message =>
+      error?.error?.toString() ?? AppConstants.genericError001;
 
   @override
-  List<Object?> get props => [message, selectedTabEnum];
+  List<Object?> get props => [
+    error,
+    paymentsInfo,
+    visibleTransactionFields,
+    selectedTabEnum,
+  ];
 }
 
 extension PaymentsStateIndex on PaymentsState {
   bool get isScheduleSelected => selectedTabEnum == PaymentsTabEnum.schedule;
-  bool get isTransactionsSelected => selectedTabEnum == PaymentsTabEnum.transactions;
+
+  bool get isTransactionsSelected =>
+      selectedTabEnum == PaymentsTabEnum.transactions;
 
   int get selectedTabIndex => PaymentsTabEnum.values.indexOf(selectedTabEnum);
 }

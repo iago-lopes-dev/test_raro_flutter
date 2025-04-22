@@ -1,16 +1,16 @@
-import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_tab_changed_event.dart';
-import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_refreshed_event.dart';
-import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_event.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_tab_changed_event.dart';
 
+import '../../../../core/base/errors/errors.dart';
 import '../../../../core/base/interfaces/interfaces.dart';
-import '../../data/model/payments/payments.dart';
 import '../../domain/entity/payments_info_entity.dart';
 import '../../domain/entity/payments_transactions_filter_entity.dart';
 import '../../domain/usecase/get_payments_use_case.dart';
 
-class PaymentsBloc extends Bloc<PaymentsRefreshedEvent, PaymentsState> {
+class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
   final GetPaymentsUseCase useCase;
 
   PaymentsBloc(this.useCase) : super(PaymentsInitialState()) {
@@ -23,33 +23,34 @@ class PaymentsBloc extends Bloc<PaymentsRefreshedEvent, PaymentsState> {
   late List<PaymentsTransactionFilterEntity> _visibleTransactionFields;
 
   Future<void> _onLoadPayments(
-    PaymentsRefreshedEvent event,
+    PaymentsEvent event,
     Emitter<PaymentsState> emit,
   ) async {
-    emit(
-      PaymentsLoadingState(
-        paymentsInfo: PaymentsInfoModel.empty(),
-        visibleTransactionFields: const [],
-        selectedTabEnum: PaymentsTabEnum.schedule,
-      ),
-    );
+    emit(PaymentsLoadingState());
     await Future.delayed(Duration(seconds: 2));
-    final Either<Failure, PaymentsInfoEntity> result = await useCase();
+    final Either<Failure, PaymentsInfoEntity> result = await useCase(
+      NoParams(),
+    );
+
     result.fold(
       (failure) => emit(
         PaymentsErrorState(
-          message: failure.message,
-          selectedTabEnum: PaymentsTabEnum.schedule,
+          error: InfraError(InfraCode.unexpected, error: failure),
         ),
       ),
       (paymentsInfo) {
         _visibleTransactionFields =
             paymentsInfo.transactionFilter.where((e) => e.isDefault).toList();
+
+        final PaymentsTabEnum selectedTab = state is PaymentsSuccessState
+            ? state.selectedTabEnum
+            : PaymentsTabEnum.schedule;
+        /// TODO(Ogai): Conferir o estado de refresh voltando para schedule
         emit(
           PaymentsSuccessState(
             paymentsInfo: paymentsInfo,
             visibleTransactionFields: _visibleTransactionFields,
-            selectedTabEnum: PaymentsTabEnum.schedule,
+            selectedTabEnum: selectedTab,
           ),
         );
       },

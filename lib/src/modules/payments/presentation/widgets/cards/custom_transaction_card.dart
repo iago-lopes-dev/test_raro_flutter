@@ -39,15 +39,23 @@ class CustomTransactionCard extends StatelessWidget {
           visibleFields.map((f) => {"key": f.key, "label": f.label}).toList(),
     );
 
-    return GridView.count(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
-      childAspectRatio: 3,
-      children:
-          cardItems.map((item) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxCrossAxisExtent = constraints.maxWidth / 2;
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: maxCrossAxisExtent,
+            mainAxisExtent: 60,
+          ),
+          itemCount: cardItems.length,
+          itemBuilder: (_, index) {
+            final item = cardItems[index];
             return _buildRow(item["label"] ?? "", item["value"] ?? "");
-          }).toList(),
+          },
+        );
+      }
     );
   }
 

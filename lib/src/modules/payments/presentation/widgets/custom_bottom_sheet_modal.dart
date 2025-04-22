@@ -38,6 +38,7 @@ class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
     );
   }
 
+  ///TODO(Ogai): Conferir estado default do checkbox
   @override
   Widget build(BuildContext context) {
     return Column(

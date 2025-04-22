@@ -33,7 +33,6 @@ class CustomScheduleCard extends StatelessWidget {
   Widget _buildContentCard() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,11 +41,13 @@ class CustomScheduleCard extends StatelessWidget {
             Text(
               _formatDate(schedule.paymentDate),
               style: AppTextStyles.get16w400(),
+              overflow: TextOverflow.ellipsis,
             ),
             SizedBox.fromSize(size: const Size(40, 0)),
             Text(
               "\$ ${schedule.principal.toString()}",
               style: AppTextStyles.get16w400(),
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

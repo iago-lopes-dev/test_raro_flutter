@@ -1,6 +1,6 @@
 import 'package:project_by_iago/src/core/base/constants/app_colors.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_bloc.dart';
-import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_refreshed_event.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_event.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_bottom_sheet_modal.dart';

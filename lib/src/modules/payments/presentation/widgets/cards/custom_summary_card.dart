@@ -26,20 +26,28 @@ class CustomSummaryCards extends StatelessWidget {
 
     return SizedBox(
       height: 130,
-      child: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        scrollDirection: Axis.horizontal,
-        itemCount: summaries.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 12),
-        itemBuilder: (_, index) {
-          return state is PaymentsLoadingState
-              ? _buildSkeletonCard(summaries[index])
-              : _buildContentCard(summaries[index]);
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return ListView.separated(
+            padding: const EdgeInsets.all(16),
+            scrollDirection: Axis.horizontal,
+            itemCount: summaries.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            itemBuilder: (_, index) {
+              return SizedBox(
+                width: constraints.maxWidth * 0.4,
+                child:
+                    state is PaymentsLoadingState
+                        ? _buildSkeletonCard(summaries[index])
+                        : _buildContentCard(summaries[index]),
+              );
+            },
+          );
         },
       ),
     );
   }
-
+/// TODO (Ogai): Conferir dados do card com figma
   Widget _buildContentCard(PaymentsSummaryEntity summary) {
     return Card(
       elevation: 2,
