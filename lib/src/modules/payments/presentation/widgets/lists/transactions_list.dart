@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_by_iago/src/core/base/constants/app_text_styles.dart';
-import 'package:project_by_iago/src/core/utils/mappers/payments_transaction_mapper.dart';
-import 'package:project_by_iago/src/modules/payments/data/data.dart';
+import 'package:project_by_iago/src/core/theme/app_text_styles.dart';
 import 'package:project_by_iago/src/modules/payments/domain/domain.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart';
@@ -14,10 +12,8 @@ class TransactionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isLoading = state is PaymentsLoadingState;
-    final List<PaymentsTransactionsModel> transactions =
-        PaymentsTransactionMapper().fromEntityList(
-          state.paymentsInfo.transactions,
-        );
+    final List<PaymentsTransactionsEntity> transactions =
+        state.paymentsInfo.transactions;
 
     final List<PaymentsTransactionFilterEntity> visibleFields =
         state.visibleTransactionFields;

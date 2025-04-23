@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:project_by_iago/src/core/base/constants/app_colors.dart';
-import 'package:project_by_iago/src/core/base/constants/app_text_styles.dart';
+import 'package:project_by_iago/src/core/theme/app_colors.dart';
+import 'package:project_by_iago/src/core/theme/app_text_styles.dart';
 import 'package:project_by_iago/src/modules/payments/domain/domain.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_shimmer_box.dart';
 
-import '../../../data/model/model.dart';
+import '../../../../../core/utils/converter_helper.dart';
 
 class CustomTransactionCard extends StatelessWidget {
-  final PaymentsTransactionsModel transaction;
+  final PaymentsTransactionsEntity transaction;
   final List<PaymentsTransactionFilterEntity> visibleFields;
   final bool isLoading;
 
@@ -39,7 +39,6 @@ class CustomTransactionCard extends StatelessWidget {
               ),
               itemCount: visibleFields.length,
               itemBuilder: (_, index) {
-                final String value =
                     !isLoading ? cardItems[visibleFields[index].key] : "";
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +49,8 @@ class CustomTransactionCard extends StatelessWidget {
                     ),
                     !isLoading
                         ? Text(
-                          value,
+                      ConverterHelper.getFormattedTransactionValue(transaction, visibleFields[index].key),
+                          // value,
                           style: AppTextStyles.get16w400(AppColors.blackFont),
                         )
                         : CustomShimmerBox(width: 140),

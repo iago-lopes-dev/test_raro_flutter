@@ -1,5 +1,7 @@
 import 'package:intl/intl.dart';
 
+import '../../modules/payments/domain/entity/entity.dart';
+
 class ConverterHelper {
   ConverterHelper._();
 
@@ -33,9 +35,31 @@ class ConverterHelper {
     return formatter.format(value).trim();
   }
 
-  static double cleanCurrencyToDouble(String value) {
-    final cleaned = value.replaceAll(RegExp(r'[^\d.]'), '');
-    return double.tryParse(cleaned) ?? 0.0;
-  }
+  static String getFormattedTransactionValue(PaymentsTransactionsEntity transaction, String key) {
+    final value = switch (key) {
+      'actualPaymentPostDate' => transaction.actualPaymentPostDate,
+      'processDate' => transaction.processDate,
+      'actualPaymentAmount' => transaction.actualPaymentAmount,
+      'actualPrincipalPaymentAmount' => transaction.actualPrincipalPaymentAmount,
+      'actualInterestPaymentAmount' => transaction.actualInterestPaymentAmount,
+      'outstandingPrincipalBalance' => transaction.outstandingPrincipalBalance,
+      'outstandingLoanBalance' => transaction.outstandingLoanBalance,
+      'actualFee' => transaction.actualFee,
+      'type' => transaction.paymentType,
+      _ => null,
+    };
 
+    if (value == null) return '--';
+
+    if (value is DateTime) {
+      return ConverterHelper.stringNullableToMMDDYYYY(value.toIso8601String());
+    }
+
+    if (value is double) {
+      if (value == 0.0) return '--';
+      return "\$${ConverterHelper.thousandSeparatorFormatter(value)}";
+    }
+
+    return value.toString();
+  }
 }

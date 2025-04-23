@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:project_by_iago/src/core/base/constants/app_colors.dart';
-import 'package:project_by_iago/src/core/base/constants/app_text_styles.dart';
+import 'package:project_by_iago/src/core/theme/app_colors.dart';
+import 'package:project_by_iago/src/core/theme/app_text_styles.dart';
 import 'package:project_by_iago/src/core/core.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_shimmer_box.dart';
 

@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_by_iago/src/core/base/enums/payments_tab_enum.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_bloc.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_tab_changed_event.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/buttons/custom_tab_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomTabSelector extends StatelessWidget {
   final PaymentsState state;
@@ -47,16 +47,14 @@ class CustomTabSelector extends StatelessWidget {
               ],
             ),
           ),
-          Visibility(
-            visible: state.isTransactionsSelected,
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            child: IconButton(
-              icon: const Icon(Icons.more_vert),
-              onPressed: onMorePressed,
-              tooltip: "More",
-            ),
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed:
+                state.isTransactionsSelected &&
+                        state.visibleTransactionFields.isNotEmpty
+                    ? onMorePressed
+                    : null,
+            tooltip: "More",
           ),
         ],
       ),

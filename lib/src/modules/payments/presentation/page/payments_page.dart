@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project_by_iago/src/core/base/constants/app_colors.dart';
+import 'package:project_by_iago/src/core/theme/app_colors.dart';
 import 'package:project_by_iago/src/modules/payments/domain/domain.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_bloc.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_event.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
-import 'package:project_by_iago/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_app_bar.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_tab_selector.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/lists/scheduled_list.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/widgets/lists/summaries_list.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/lists/transactions_list.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/modals/custom_bottom_sheet_modal.dart';
 
@@ -54,12 +54,15 @@ class _PaymentsPageState extends State<PaymentsPage> {
         builder: (context, state) {
           return Scaffold(
             backgroundColor: AppColors.defaultBackground,
-            appBar: _buildAppBar(state),
+            appBar: CustomAppBar(title: "Payments"),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CustomSummaryCard(state: state),
-                _buildCallToAction(),
+                SummariesList(state: state),
+                _buildCallToAction(
+                  (state.paymentsInfo.paymentsScheduled.isNotEmpty ||
+                      state.paymentsInfo.transactions.isNotEmpty),
+                ),
                 const SizedBox(height: 16),
                 CustomTabSelector(
                   state: state,
@@ -69,7 +72,10 @@ class _PaymentsPageState extends State<PaymentsPage> {
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: _refresh,
-                    child: _buildTabContent(state),
+                    child:
+                        state.isScheduleSelected
+                            ? ScheduledList(state: state)
+                            : TransactionsList(state: state),
                   ),
                 ),
               ],
@@ -80,64 +86,46 @@ class _PaymentsPageState extends State<PaymentsPage> {
     );
   }
 
-  PreferredSizeWidget _buildAppBar(PaymentsState state) {
-    return AppBar(
-      backgroundColor: AppColors.blueBackground,
-      elevation: 0,
-      centerTitle: true,
-      title: const Text("Payments", style: TextStyle(color: AppColors.white)),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.help_outline, color: AppColors.white),
-          onPressed: () {},
-        ),
-      ],
-      systemOverlayStyle: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.blueBackground,
-        statusBarIconBrightness: Brightness.light,
-      ),
-    );
-  }
-
-  Widget _buildCallToAction() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text("Do you want to make a payment? "),
-          GestureDetector(
-            onTap: () {},
-            child: const Text(
-              "Click here",
-              style: TextStyle(color: AppColors.green),
+  Widget _buildCallToAction(bool isLoaded) {
+    return Visibility(
+      visible: isLoaded,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Do you want to make a payment? "),
+            Tooltip(
+              message: "Click here",
+              child: GestureDetector(
+                onTap: () {},
+                child: const Text(
+                  "Click here",
+                  style: TextStyle(color: AppColors.green),
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
-  }
-
-  Widget _buildTabContent(PaymentsState state) {
-    return state.isScheduleSelected
-        ? ScheduledList(state: state)
-        : TransactionsList(state: state);
   }
 
   void _showBottomSheet(BuildContext context, PaymentsState state) async {
-    final List<PaymentsTransactionFilterEntity> selectedFields = await showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      isDismissible: false,
-      context: context,
-      builder: (_) {
-        return CustomBottomSheetModal(
-          title: "Additional information",
-          state: state,
+    final List<PaymentsTransactionFilterEntity> selectedFields =
+        await showModalBottomSheet(
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          isDismissible: false,
+          context: context,
+          builder: (_) {
+            return CustomBottomSheetModal(
+              title: "Additional information",
+              state: state,
+            );
+          },
         );
-      },
-    );
 
     bloc.add(UpdateVisibleTransactionFieldsEvent(selectedFields));
-    }
+  }
 }

@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:project_by_iago/src/core/base/constants/app_colors.dart";
-import "package:project_by_iago/src/core/base/constants/app_text_styles.dart";
+import "package:project_by_iago/src/core/theme/app_colors.dart";
+import "package:project_by_iago/src/core/theme/app_text_styles.dart";
 import "package:project_by_iago/src/modules/payments/domain/domain.dart";
 import "package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart";
 

@@ -7,25 +7,36 @@ class PaymentsInfoModel extends PaymentsInfoEntity {
         paymentsScheduled:
             json['paymentsScheduled'] != null
                 ? json['paymentsScheduled']
-                    .map<PaymentsScheduleEntity>((json) => PaymentsScheduledModel.fromJson(json))
+                    .map<PaymentsScheduleEntity>(
+                      (json) => PaymentsScheduledModel.fromJson(json),
+                    )
                     .toList()
                 : [],
         transactionFilter:
-            json['transactionFilters'] != null
-                ? json['transactionFilters']
-                    .map<PaymentsTransactionFilterEntity>((json) => PaymentsTransactionHeadersModel.fromJson(json))
+            (json['transactionFilters'] ?? json['transactionHeaders']) != null
+                ? (json['transactionFilters'] ?? json['transactionHeaders'])
+                    .map<PaymentsTransactionFilterEntity>(
+                      (json) => PaymentsTransactionHeadersModel.fromJson(json),
+                    )
                     .toList()
                 : [],
         transactions:
             json['transactions'] != null
                 ? json['transactions']
-                    .map<PaymentsTransactionsEntity>((json) => PaymentsTransactionsModel.fromJson(json))
+                    .map<PaymentsTransactionsEntity>(
+                      (json) => PaymentsTransactionsModel.fromJson(json),
+                    )
                     .toList()
                 : [],
         summary:
             json['summary'] != null
-                ? json['summary'].map<PaymentsSummaryEntity>((json) => PaymentsSummaryModel.fromJson(json)).toList()
+                ? json['summary']
+                    .map<PaymentsSummaryEntity>(
+                      (json) => PaymentsSummaryModel.fromJson(json),
+                    )
+                    .toList()
                 : [],
       );
+
   PaymentsInfoModel.empty() : this.fromJson({});
 }

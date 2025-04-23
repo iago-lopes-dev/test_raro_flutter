@@ -1,75 +1,96 @@
-# Teste Técnico - Desenvolvedor Flutter
+# Flutter Payments App
 
-## Objetivo
-O objetivo deste teste técnico é avaliar suas habilidades no desenvolvimento de interfaces em Flutter, seguindo boas práticas de código, organização do projeto e implementação de testes. Você deverá dar sequência à base do projeto fornecido, reproduzindo a tela conforme o protótipo no [Figma](https://www.figma.com/design/QWC5IksyTx2k65ZzkPz3r1/Processo-seletivo---Dev-flutter?node-id=1-4313&t=WNNCW8T4MMI6Z9M8-1).
+Este é um projeto Flutter modular estruturado com **Clean Architecture**, criado para gerenciamento
+de pagamentos com foco em separação de responsabilidades, manutenibilidade e escalabilidade.
 
-***Alguns packages já foram incluídos no projeto, fique a vontade para substitui-los, propor melhorias na arquitetura atual.***
+---
 
-## Requisitos
-- Implementar uma tela onde o usuário poderá visualizar uma **lista de informações** sobre **transactions** e **schedules**.
-- Implementar um **BottomSheet** que permitirá ocultar ou exibir dados sobre os itens do **schedule**.
-- Seguir as diretrizes do **protótipo no Figma**.
-- Escrever **testes unitários** e **testes de widget**.
-- Utilizar o BLoC como gerenciamento de estado.
-- Comportamentos esperados para a tela:
-  - Em estado de loading os widgets devem exibir um shimmer no lugar dos dados;
-  - A tela deve ter um scroll único de forma geral, não sendo permitido a existência de scrolls aninhados;
-  - A tela deve suportar o gesto 'puxar para atualizar' (pull-to-refresh). Ao realizar esse gesto, os dados exibidos na tela devem ser recarregados, buscando as informações mais recentes do servidor.
-  - A interface da tela deve se adaptar automaticamente aos campos de filtro retornados pela API. Alterações nos campos de filtro na API devem refletir imediatamente no app, sem necessidade da publicação de uma nova release.
+## Arquitetura
 
-## Boas Práticas
-Para garantir um código bem estruturado e manutenível, siga as seguintes diretrizes:
+O projeto segue os princípios da **Clean Architecture**, dividindo responsabilidades em camadas bem
+definidas:
 
-- **Responsividade:** Certifique-se de que a tela funcione corretamente em diferentes tamanhos de dispositivos.
-- **Componentização:** Separe os widgets reutilizáveis para facilitar a organização do código.
-- **Acessibilidade:** Considere a acessibilidade ao desenvolver os componentes visuais.
-- **Manutenção:** Nomeie variáveis, métodos e classes de forma clara e significativa.
-- **Tratamento de Erros:** Implemente tratamento de erros para melhorar a experiência do usuário.
-- **Seguir a Arquitetura do Projeto:** Mantenha o código organizado e dentro da estrutura já existente no projeto base.
+- **Domain**: Define as entidades e contratos do negócio.
+- **Data**: Implementa repositórios, models e datasources.
+- **Infra**: Fornece implementações concretas para integração com APIs ou dados mockados.
+- **Presentation**: Contém os Blocs, páginas, widgets e elementos visuais.
+- **Core**: Armazena elementos compartilhados e reutilizáveis, como temas, constantes, extensões e
+  helpers.
 
-## Testes
-- É **obrigatório** implementar **testes unitários** para as regras de negócio, validações e/ou camadas que julgar necessário.
-- **Opcional:** Implementação de **testes de integração** para garantir a funcionalidade correta da interface e interação do usuário.
+---
 
-## Entrega
-1. Faça um fork ou clone do repositório base fornecido.
-2. Desenvolva as funcionalidades seguindo os requisitos.
-3. Submeta o código em um repositório público ou envie um link para o repositório privado.
+## Estrutura de Pastas
 
-Boa sorte! 🚀
+```
+lib/
+└── src/
+    ├── core/
+    │   ├── base/
+    │   │   ├── constants/           # Constantes globais
+    │   │   ├── enums/               # Enums como PaymentTabEnum
+    │   │   ├── errors/              # Definições de erros genéricos
+    │   │   ├── interfaces/          # Interfaces genéricas (use cases, falhas, etc)
+    │   ├── theme/                   # Criado para centralizar cores e estilos de texto
+    │   ├── utils/                   # Funções auxiliares e extensões (como formatações de valores e datas)
+    │   └── core.dart                # Exportações unificadas do core
+    ├── modules/
+    │   └── payments/
+    │       ├── data/                # Models e implementações de datasources/repositories
+    │       ├── domain/              # Entidades e contratos do negócio
+    │       ├── infra/               # Integrações com JSON mock ou APIs reais
+    │       └── presentation/        # UI: Blocs, páginas, widgets e modais
+    ├── app_widget.dart             # Widget principal da aplicação
+    └── main.dart                   # Ponto de entrada do app
+test/                               # Testes unitários
+```
 
-## Informações adicionais
-- Versão do Flutter utilizado para criação do projeto base: 3.29.0;
-- As telas do Figma estão em protótipo, então é possível navegar para entender melhor o comportamento das telas;
-- Estrutura base do Projeto
-  ```
-  lib/
-  └── src/
-      ├── core/
-      │   ├── base/
-      │   │   ├── constants/           # Constantes globais do projeto
-      │   │   ├── errors/              # Definições de erros e exceções
-      │   │   ├── interfaces/          # Interfaces para abstração
-      │   │   ├── base.dart
-      │   ├── utils/                   # Funções auxiliares e extensões
-      │   ├── core.dart                 # Arquivo principal do core
-      ├── modules/
-      │   ├── payments/                 # Módulo de pagamentos
-      │   │   ├── data/                 # Camada de dados
-      │   │   │   ├── datasource/
-      │   │   │   ├── model/
-      │   │   │   ├── repository/
-      │   │   ├── domain/               # Camada de domínio
-      │   │   │   ├── entity/
-      │   │   │   ├── repository/
-      │   │   │   ├── usecase/
-      │   │   ├── infra/                # Infraestrutura
-      │   │   │   ├── datasource/
-      │   │   │   ├── mock/
-      │   │   ├── presentation/         # Camada de apresentação
-      │   │   │   ├── bloc/
-      │   │   │   ├── page/
-      ├── app_widget.dart               # Widget principal do app
-      ├── main.dart                      # Ponto de entrada do app
-  test/                                  # Testes unitários
-  ```
+---
+
+## Primeiros Passos
+
+1. **Clone o projeto:**
+   ```bash
+   git clone https://github.com/iago-lopes-dev/test_raro_flutter
+   cd test_raro_flutter
+
+2. **Instale as dependências:**
+   ```bash
+   flutter pub get
+
+3. **Execute o aplicativo:**
+   ```bash
+   flutter run
+
+Para rodar os testes unitários:
+flutter test
+
+## Tecnologias Utilizadas
+
+- Flutter
+- Dart
+- Bloc Pattern para gerenciamento de estado
+- Clean Architecture
+- Material Design 3 (com tema customizado)
+
+## Funcionalidades Desenvolvidas
+
+- Interface modular com tabs e filtros
+- Cards personalizados e listas dinâmicas para agendamentos, transações e resumos
+  Modal inferior customizado
+- Página principal com separação de responsabilidade via bloc
+- Estilo visual padronizado com tema centralizado
+  layout fiel ao protótipo fornecido
+  no [Figma](https://www.figma.com/design/QWC5IksyTx2k65ZzkPz3r1/Processo-seletivo---Dev-flutter?node-id=1-4313&t=WNNCW8T4MMI6Z9M8-1).
+
+## Fallback Inteligente
+
+- Foi implementado um fallback automático no payments_info_model.dart, garantindo
+  compatibilidade com diferentes formatos de resposta da API.
+- Quando a API retorna transactionHeaders em vez de transactionFilters, o sistema interpreta
+  corretamente os dados, garantindo que a interface funcione sem erros e que o usuário tenha uma
+  experiência fluida mesmo com diferentes versões do backend.
+
+## Observações
+
+- A estrutura de temas, estilos de texto e cores foi criada do zero.
+- Fallbacks foram adicionados em models críticos para prevenir quebras caso a API mude.

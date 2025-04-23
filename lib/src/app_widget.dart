@@ -1,4 +1,4 @@
-import 'package:project_by_iago/src/core/base/constants/app_colors.dart';
+import 'package:project_by_iago/src/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'modules/payments/presentation/page/payments_page.dart';

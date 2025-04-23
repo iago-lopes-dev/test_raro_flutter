@@ -7,7 +7,7 @@ import '../../../../core/base/constants/app_constants.dart';
 import '../../../../core/base/errors/errors.dart';
 
 abstract class PaymentsState extends Equatable {
-  final PaymentsInfoModel paymentsInfo;
+  final PaymentsInfoEntity paymentsInfo;
   final List<PaymentsTransactionFilterEntity> visibleTransactionFields;
   final PaymentsTabEnum selectedTabEnum;
 
@@ -41,7 +41,7 @@ class PaymentsLoadingState extends PaymentsState {
     required super.selectedTabEnum,
   });
   PaymentsSuccessState copyWith({
-    PaymentsInfoModel? paymentsInfo,
+    PaymentsInfoEntity? paymentsInfo,
     List<PaymentsTransactionFilterEntity>? visibleTransactionFields,
     PaymentsTabEnum? selectedTabEnum,
   }) {
@@ -62,7 +62,7 @@ class PaymentsSuccessState extends PaymentsState {
   });
 
   PaymentsSuccessState copyWith({
-    PaymentsInfoModel? paymentsInfo,
+    PaymentsInfoEntity? paymentsInfo,
     List<PaymentsTransactionFilterEntity>? visibleTransactionFields,
     PaymentsTabEnum? selectedTabEnum,
   }) {

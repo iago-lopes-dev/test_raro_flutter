@@ -42,7 +42,6 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
         selectedTabEnum: state.selectedTabEnum,
       ),
     );
-    await Future.delayed(Duration(seconds: 2));
     final Either<Failure, PaymentsInfoEntity> result = await useCase(
       NoParams(),
     );
