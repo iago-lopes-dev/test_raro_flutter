@@ -1,13 +1,14 @@
+import 'package:equatable/equatable.dart';
 import 'package:project_by_iago/src/core/base/enums/payments_tab_enum.dart';
 import 'package:project_by_iago/src/modules/payments/data/data.dart';
-import 'package:equatable/equatable.dart';
+import 'package:project_by_iago/src/modules/payments/domain/domain.dart';
 
 import '../../../../core/base/constants/app_constants.dart';
 import '../../../../core/base/errors/errors.dart';
 
 abstract class PaymentsState extends Equatable {
   final PaymentsInfoModel paymentsInfo;
-  final List<PaymentsTransactionHeadersModel> visibleTransactionFields;
+  final List<PaymentsTransactionFilterEntity> visibleTransactionFields;
   final PaymentsTabEnum selectedTabEnum;
 
   const PaymentsState({
@@ -34,12 +35,23 @@ class PaymentsInitialState extends PaymentsState {
 }
 
 class PaymentsLoadingState extends PaymentsState {
-  PaymentsLoadingState()
-    : super(
-        paymentsInfo: PaymentsInfoModel.empty(),
-        visibleTransactionFields: const [],
-        selectedTabEnum: PaymentsTabEnum.schedule,
-      );
+  const PaymentsLoadingState({
+    required super.paymentsInfo,
+    required super.visibleTransactionFields,
+    required super.selectedTabEnum,
+  });
+  PaymentsSuccessState copyWith({
+    PaymentsInfoModel? paymentsInfo,
+    List<PaymentsTransactionFilterEntity>? visibleTransactionFields,
+    PaymentsTabEnum? selectedTabEnum,
+  }) {
+    return PaymentsSuccessState(
+      paymentsInfo: paymentsInfo ?? this.paymentsInfo,
+      visibleTransactionFields:
+      visibleTransactionFields ?? this.visibleTransactionFields,
+      selectedTabEnum: selectedTabEnum ?? this.selectedTabEnum,
+    );
+  }
 }
 
 class PaymentsSuccessState extends PaymentsState {
@@ -51,7 +63,7 @@ class PaymentsSuccessState extends PaymentsState {
 
   PaymentsSuccessState copyWith({
     PaymentsInfoModel? paymentsInfo,
-    List<PaymentsTransactionHeadersModel>? visibleTransactionFields,
+    List<PaymentsTransactionFilterEntity>? visibleTransactionFields,
     PaymentsTabEnum? selectedTabEnum,
   }) {
     return PaymentsSuccessState(

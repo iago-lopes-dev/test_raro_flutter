@@ -1,8 +1,7 @@
 import "package:flutter/material.dart";
 import "package:project_by_iago/src/core/base/constants/app_colors.dart";
 import "package:project_by_iago/src/core/base/constants/app_text_styles.dart";
-import "package:project_by_iago/src/core/utils/helpers/json_helper.dart";
-import "package:project_by_iago/src/modules/payments/data/data.dart";
+import "package:project_by_iago/src/modules/payments/domain/domain.dart";
 import "package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart";
 
 class CustomBottomSheetModal extends StatefulWidget {
@@ -24,17 +23,21 @@ class CustomBottomSheetModal extends StatefulWidget {
 }
 
 class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
-  late List<PaymentsTransactionHeadersModel> selected;
-
-  final List<PaymentsTransactionHeadersModel> allFields =
-      JsonHelper.getMockTransactionFiltersFromJson();
+  late List<PaymentsTransactionFilterEntity> allFilters;
+  late List<PaymentsTransactionFilterEntity> selectedFilters;
 
   @override
   void initState() {
     super.initState();
-    selected = List.from(
+    allFilters = widget.state.paymentsInfo.transactionFilter;
+    selectedFilters = List.from(
       (widget.state as PaymentsSuccessState).visibleTransactionFields,
     );
+    for (var filter in allFilters.where((f) => f.isDefault)) {
+      if (!selectedFilters.any((f) => f.label == filter.label)) {
+        selectedFilters.add(filter);
+      }
+    }
   }
 
   @override
@@ -69,12 +72,15 @@ class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
                   SizedBox.fromSize(size: Size(10, 10)),
                   Column(
                     children:
-                        allFields
+                        allFilters
                             .map(
                               (filter) => CheckboxListTile(
                                 controlAffinity:
                                     ListTileControlAffinity.leading,
-                                value: selected.contains(filter),
+                                value: selectedFilters.any(
+                                  (f) => f.label == filter.label,
+                                ),
+                                enabled: !filter.isDefault,
                                 activeColor: AppColors.green,
                                 checkColor: AppColors.white,
                                 title: Text(
@@ -84,9 +90,15 @@ class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
                                 onChanged: (value) {
                                   setState(() {
                                     if (value == true) {
-                                      selected.add(filter);
+                                      if (!selectedFilters.any(
+                                        (f) => f.label == filter.label,
+                                      )) {
+                                        selectedFilters.add(filter);
+                                      }
                                     } else {
-                                      selected.remove(filter);
+                                      selectedFilters.removeWhere(
+                                        (f) => f.label == filter.label,
+                                      );
                                     }
                                   });
                                 },
@@ -116,7 +128,7 @@ class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
         ),
         IconButton(
           icon: Icon(Icons.close, color: AppColors.grayFont),
-          onPressed: () => Navigator.pop(context, selected),
+          onPressed: () => Navigator.pop(context, selectedFilters),
         ),
       ],
     );

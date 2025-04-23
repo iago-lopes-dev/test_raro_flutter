@@ -1,19 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_by_iago/src/core/base/constants/app_colors.dart';
+import 'package:project_by_iago/src/modules/payments/domain/domain.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_bloc.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_event.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart';
-import 'package:project_by_iago/src/modules/payments/presentation/widgets/modals/custom_bottom_sheet_modal.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_tab_selector.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/lists/scheduled_list.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/lists/transactions_list.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/widgets/modals/custom_bottom_sheet_modal.dart';
 
-import '../../data/model/model.dart';
 import '../../data/repository/payment_repository_impl.dart';
-import '../../domain/usecase/get_payments_use_case.dart';
 import '../../infra/datasource/payments_datasource_impl.dart';
 
 class PaymentsPage extends StatefulWidget {
@@ -54,7 +53,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
       child: BlocBuilder<PaymentsBloc, PaymentsState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: AppColors.grayLight,
+            backgroundColor: AppColors.defaultBackground,
             appBar: _buildAppBar(state),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,7 +125,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
   }
 
   void _showBottomSheet(BuildContext context, PaymentsState state) async {
-    final List<PaymentsTransactionHeadersModel> selectedFields = await showModalBottomSheet(
+    final List<PaymentsTransactionFilterEntity> selectedFields = await showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       isDismissible: false,

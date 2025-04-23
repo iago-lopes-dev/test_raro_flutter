@@ -11,8 +11,22 @@
   <component name="ChangeListManager">
     <list default="true" id="8c832c45-8564-4b78-a267-9a467881b53b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/base/constants/app_colors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/base/constants/app_colors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/helpers/converter_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/helpers/converter_helper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/helpers/json_helper.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/mappers/mapper.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_transaction_mapper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/mappers/payments_transaction_mapper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/infra/datasource/payments_datasource_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/infra/datasource/payments_datasource_impl.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_event.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_event.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_state.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/page/payments_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/page/payments_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_shimmer_box.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_shimmer_box.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/scheduled_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/scheduled_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/summaries_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/summaries_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/transactions_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/transactions_list.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/modals/custom_bottom_sheet_modal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/modals/custom_bottom_sheet_modal.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

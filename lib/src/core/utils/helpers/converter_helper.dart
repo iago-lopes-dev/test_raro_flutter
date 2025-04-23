@@ -32,4 +32,10 @@ class ConverterHelper {
     final NumberFormat formatter = NumberFormat.currency(locale: 'en_US', symbol: '');
     return formatter.format(value).trim();
   }
+
+  static double cleanCurrencyToDouble(String value) {
+    final cleaned = value.replaceAll(RegExp(r'[^\d.]'), '');
+    return double.tryParse(cleaned) ?? 0.0;
+  }
+
 }

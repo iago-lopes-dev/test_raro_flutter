@@ -9,15 +9,15 @@ class PaymentsDatasourceImpl implements PaymentsDataSource {
   @override
   Future<PaymentsInfoEntity> getPaymentsInfo() async {
     try {
-      final response = await Future.delayed(Duration(milliseconds: 1500)).then((_) {
+      final response = await Future.delayed(Duration(milliseconds: 1500)).then((
+        _,
+      ) {
         // INFO: use mockEmptyJson or mockPaymentsJson
         return mockPaymentsJson; /* mockEmptyJson */
-        // return mockEmptyJson;
       });
       return PaymentsInfoModel.fromJson(response);
     } catch (e) {
       throw InfraError(InfraCode.unexpected, error: e);
     }
   }
-  ///TODO(Ogai): Conferir sem mock.
 }

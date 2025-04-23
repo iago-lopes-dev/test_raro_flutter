@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_by_iago/src/core/base/constants/app_colors.dart';
 import 'package:project_by_iago/src/core/base/constants/app_text_styles.dart';
-import 'package:project_by_iago/src/core/utils/helpers/json_helper.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_shimmer_box.dart';
 
@@ -15,14 +14,12 @@ class CustomSummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<PaymentsSummaryEntity> summaries = state.paymentsInfo.summary;
+
+    // if (state is PaymentsLoadingState || state is PaymentsSuccessState) {
     if (state is PaymentsInitialState || state is PaymentsErrorState) {
       return const SizedBox.shrink();
     }
-
-    final summaries =
-        state is PaymentsSuccessState
-            ? (state as PaymentsSuccessState).paymentsInfo.summary
-            : JsonHelper.getMockSummariesFromJson();
 
     return SizedBox(
       height: 120,
@@ -57,10 +54,7 @@ class CustomSummaryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              summary.label,
-              style: AppTextStyles.get12w400(),
-            ),
+            Text(summary.label, style: AppTextStyles.get12w400()),
             const SizedBox(height: 4),
             Text.rich(
               TextSpan(

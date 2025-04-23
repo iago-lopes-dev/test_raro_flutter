@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_by_iago/src/core/utils/helpers/json_helper.dart';
 import 'package:project_by_iago/src/modules/payments/data/data.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart';
@@ -16,11 +15,9 @@ class SummariesList extends StatelessWidget {
     }
 
     final List<PaymentsSummaryModel> summaries =
-        state is PaymentsSuccessState
-            ? (state as PaymentsSuccessState).paymentsInfo.summary
-                .map((e) => e as PaymentsSummaryModel)
-                .toList()
-            : JsonHelper.getMockSummariesFromJson();
+        (state as PaymentsSuccessState).paymentsInfo.summary
+            .map((e) => e as PaymentsSummaryModel)
+            .toList();
 
     return SizedBox(
       height: 130,
@@ -34,9 +31,7 @@ class SummariesList extends StatelessWidget {
             itemBuilder: (_, index) {
               return SizedBox(
                 width: constraints.maxWidth * 0.4,
-                child: CustomSummaryCard(
-                  state: state,
-                ),
+                child: CustomSummaryCard(state: state),
               );
             },
           );
@@ -44,6 +39,4 @@ class SummariesList extends StatelessWidget {
       ),
     );
   }
-
-  /// TODO (Ogai): Conferir dados do card com figma
 }

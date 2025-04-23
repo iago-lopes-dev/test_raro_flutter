@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project_by_iago/src/core/base/enums/payments_tab_enum.dart';
-import 'package:project_by_iago/src/core/utils/helpers/json_helper.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_event.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_tab_changed_event.dart';
@@ -22,7 +21,7 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
     on<PaymentsTabChangedEvent>(_onChangeTab);
   }
 
-  late List<PaymentsTransactionHeadersModel> _visibleTransactionFields;
+  late List<PaymentsTransactionFilterEntity> _visibleTransactionFields;
 
   Future<void> _onLoadPayments(
     PaymentsEvent event,
@@ -33,12 +32,16 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
             ? state.selectedTabEnum
             : PaymentsTabEnum.schedule;
 
-    final List<PaymentsTransactionHeadersModel> previousVisibleFields =
-        state is PaymentsSuccessState
-            ? state.visibleTransactionFields
-            : JsonHelper.getMockTransactionFiltersFromJson();
+    final List<PaymentsTransactionFilterEntity> previousVisibleFields =
+        state.visibleTransactionFields;
 
-    emit(PaymentsLoadingState());
+    emit(
+      PaymentsLoadingState(
+        paymentsInfo: state.paymentsInfo,
+        visibleTransactionFields: state.visibleTransactionFields,
+        selectedTabEnum: state.selectedTabEnum,
+      ),
+    );
     await Future.delayed(Duration(seconds: 2));
     final Either<Failure, PaymentsInfoEntity> result = await useCase(
       NoParams(),
@@ -57,18 +60,17 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
         _visibleTransactionFields =
             previousVisibleFields.isNotEmpty
                 ? previousVisibleFields
-                :
-            paymentsInfoEntity.transactionFilter
-                .where((e) => e.isDefault)
-                .toList()
-                .map(
-                  (e) => PaymentsTransactionHeadersModel(
-                    key: e.key,
-                    label: e.label,
-                    isDefault: e.isDefault,
-                  ),
-                )
-                .toList();
+                : paymentsInfoEntity.transactionFilter
+                    .where((e) => e.isDefault)
+                    .toList()
+                    .map(
+                      (e) => PaymentsTransactionHeadersModel(
+                        key: e.key,
+                        label: e.label,
+                        isDefault: e.isDefault,
+                      ),
+                    )
+                    .toList();
 
         emit(
           PaymentsSuccessState(
