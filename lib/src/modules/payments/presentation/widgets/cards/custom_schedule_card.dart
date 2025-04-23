@@ -1,17 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:project_by_iago/src/core/base/constants/app_colors.dart';
 import 'package:project_by_iago/src/core/base/constants/app_text_styles.dart';
-import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:project_by_iago/src/core/core.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_shimmer_box.dart';
 
 import '../../../domain/entity/payments_schedule_entity.dart';
 
 class CustomScheduleCard extends StatelessWidget {
-  final PaymentsScheduleEntity schedule;
+  final PaymentsScheduleEntity scheduled;
   final bool isLoading;
   final bool isNextPayment;
 
   const CustomScheduleCard({
-    required this.schedule,
+    required this.scheduled,
     required this.isLoading,
     this.isNextPayment = false,
     super.key,
@@ -25,86 +27,93 @@ class CustomScheduleCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: isLoading ? _buildSkeletonCard() : _buildContentCard(),
-      ),
-    );
-  }
-
-  Widget _buildContentCard() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              _formatDate(schedule.paymentDate),
-              style: AppTextStyles.get16w400(),
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox.fromSize(size: const Size(40, 0)),
-            Text(
-              "\$ ${schedule.principal.toString()}",
-              style: AppTextStyles.get16w400(),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
-        isNextPayment
-            ? Container(
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Text(
-                  "Next",
-                  style: AppTextStyles.get14w400(AppColors.blueBackground),
+        child:
+            isLoading
+                ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(
+                    1,
+                    (_) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [CustomShimmerBox(), CustomShimmerBox()],
+                      ),
+                    ),
+                  ),
+                )
+                : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          DateFormat(
+                            'MM/dd/yyyy',
+                          ).format(scheduled.paymentDate),
+                          // ConverterHelper.stringNullableToMMDDYYYY(
+                          // scheduled.paymentDate.toString(),
+                          // ConverterHelper.stringNullableToMMDDYYYY(scheduled.paymentDate),
+                          ///TODO(Ogai): Conferir adapter
+                          style: AppTextStyles.get16w400(AppColors.blackFont),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox.fromSize(size: const Size(50, 0)),
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              WidgetSpan(
+                                alignment: PlaceholderAlignment.baseline,
+                                baseline: TextBaseline.alphabetic,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 2.0),
+                                  child: Text(
+                                    "\$",
+                                    style: AppTextStyles.get10w400(
+                                      AppColors.blackFont,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              TextSpan(
+                                text:
+                                    ConverterHelper.thousandSeparatorFormatter(
+                                      scheduled.principal,
+                                    ),
+                                style: AppTextStyles.get16w400(
+                                  AppColors.blackFont,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    isNextPayment
+                        ? Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.grayLight,
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 4.0,
+                              horizontal: 12,
+                            ),
+                            child: Text(
+                              "Next",
+                              style: AppTextStyles.get14w400(
+                                AppColors.blueBackground,
+                              ),
+                            ),
+                          ),
+                        )
+                        : SizedBox.shrink(),
+                  ],
                 ),
-              ),
-            )
-            : SizedBox.shrink(),
-      ],
-    );
-  }
-
-  Widget _buildSkeletonCard() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: List.generate(1, (_) => _buildShimmerRow()),
-    );
-  }
-
-  Widget _buildShimmerRow() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [_shimmerBox(width: 100), _shimmerBox(width: 100)],
       ),
     );
-  }
-
-  Widget _shimmerBox({required double width}) {
-    return Shimmer.fromColors(
-      baseColor: AppColors.gray,
-      highlightColor: AppColors.grayFont,
-      child: Container(
-        height: 20,
-        width: width,
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(6),
-        ),
-      ),
-    );
-  }
-
-  String _formatDate(DateTime date) {
-    return "${date.day.toString().padLeft(2, '0')}/"
-        "${date.month.toString().padLeft(2, '0')}/"
-        "${date.year}";
   }
 }

@@ -12,6 +12,7 @@ class PaymentsDatasourceImpl implements PaymentsDataSource {
       final response = await Future.delayed(Duration(milliseconds: 1500)).then((_) {
         // INFO: use mockEmptyJson or mockPaymentsJson
         return mockPaymentsJson; /* mockEmptyJson */
+        // return mockEmptyJson;
       });
       return PaymentsInfoModel.fromJson(response);
     } catch (e) {

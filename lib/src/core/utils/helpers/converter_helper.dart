@@ -26,4 +26,10 @@ class ConverterHelper {
     final String formattedValue = isWholeNumber ? value.toInt().toString() : value.toStringAsFixed(2);
     return '\$$formattedValue';
   }
+
+  static String thousandSeparatorFormatter(double value, [String replacedSymbol = '--']) {
+    if (value == 0.0) return replacedSymbol;
+    final NumberFormat formatter = NumberFormat.currency(locale: 'en_US', symbol: '');
+    return formatter.format(value).trim();
+  }
 }

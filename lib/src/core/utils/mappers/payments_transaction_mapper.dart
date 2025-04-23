@@ -20,6 +20,26 @@ class PaymentsTransactionMapper
       paymentType: model.paymentType,
     );
   }
+
+  PaymentsTransactionsModel fromEntity(PaymentsTransactionsEntity entity) {
+    return PaymentsTransactionsModel(
+      key: entity.key,
+      actualPaymentPostDate: entity.actualPaymentPostDate,
+      processDate: entity.processDate,
+      actualPaymentAmount: entity.actualPaymentAmount,
+      actualPrincipalPaymentAmount: entity.actualPrincipalPaymentAmount,
+      actualInterestPaymentAmount: entity.actualInterestPaymentAmount,
+      outstandingPrincipalBalance: entity.outstandingPrincipalBalance,
+      outstandingLoanBalance: entity.outstandingLoanBalance,
+      actualFee: entity.actualFee,
+      paymentType: entity.paymentType,
+    );
+  }
+
+  List<PaymentsTransactionsModel> fromEntityList(
+      List<PaymentsTransactionsEntity> list) {
+    return list.map(fromEntity).toList();
+  }
 }
 
 class PaymentsTransactionsEntityImpl extends PaymentsTransactionsEntity {

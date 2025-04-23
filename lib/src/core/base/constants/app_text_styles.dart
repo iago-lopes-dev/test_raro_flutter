@@ -7,6 +7,13 @@ abstract class AppTextStyles {
   static const double defaultFontSize = 12.0;
   static const FontWeight defaultFontWeight = FontWeight.w400;
 
+  static TextStyle get10w400([Color? color, AppFontStyle? font]) => TextStyle(
+    fontSize: 10.0,
+    fontWeight: FontWeight.w400,
+    color: color ?? defaultFontColor,
+    fontFamily: font?.title ?? AppFontStyle.lato.title,
+  );
+
   static TextStyle get12w400([Color? color, AppFontStyle? font]) => TextStyle(
     fontSize: 12.0,
     fontWeight: FontWeight.w400,

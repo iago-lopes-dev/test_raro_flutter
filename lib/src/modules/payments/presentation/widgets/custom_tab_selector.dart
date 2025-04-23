@@ -1,7 +1,8 @@
+import 'package:project_by_iago/src/core/base/enums/payments_tab_enum.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_bloc.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_tab_changed_event.dart';
-import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_tap_button.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/widgets/buttons/custom_tab_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

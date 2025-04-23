@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../domain/entity/payments_transactions_filter_entity.dart';
+import 'package:project_by_iago/src/modules/payments/data/data.dart';
 
 abstract class PaymentsEvent extends Equatable {
   @override
@@ -12,7 +11,7 @@ class FetchPaymentsEvent extends PaymentsEvent {}
 class RefreshPaymentsEvent extends PaymentsEvent {}
 
 class UpdateVisibleTransactionFieldsEvent extends PaymentsEvent {
-  final List<PaymentsTransactionFilterEntity> visibleFields;
+  final List<PaymentsTransactionHeadersModel> visibleFields;
 
   UpdateVisibleTransactionFieldsEvent(this.visibleFields);
 

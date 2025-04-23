@@ -1,13 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_by_iago/src/core/base/enums/payments_tab_enum.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_event.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_tab_changed_event.dart';
 
 import '../../../../core/base/errors/errors.dart';
 import '../../../../core/base/interfaces/interfaces.dart';
-import '../../domain/entity/payments_info_entity.dart';
-import '../../domain/entity/payments_transactions_filter_entity.dart';
+import '../../data/model/model.dart';
+import '../../domain/entity/entity.dart';
 import '../../domain/usecase/get_payments_use_case.dart';
 
 class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
@@ -20,7 +21,7 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
     on<PaymentsTabChangedEvent>(_onChangeTab);
   }
 
-  late List<PaymentsTransactionFilterEntity> _visibleTransactionFields;
+  late List<PaymentsTransactionHeadersModel> _visibleTransactionFields;
 
   Future<void> _onLoadPayments(
     PaymentsEvent event,
@@ -38,13 +39,28 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
           error: InfraError(InfraCode.unexpected, error: failure),
         ),
       ),
-      (paymentsInfo) {
+      (paymentsInfoEntity) {
         _visibleTransactionFields =
-            paymentsInfo.transactionFilter.where((e) => e.isDefault).toList();
+            paymentsInfoEntity.transactionFilter
+                .where((e) => e.isDefault)
+                .toList()
+                .map(
+                  (e) => PaymentsTransactionHeadersModel(
+                    key: e.key,
+                    label: e.label,
+                    isDefault: e.isDefault,
+                  ),
+                )
+                .toList();
 
-        final PaymentsTabEnum selectedTab = state is PaymentsSuccessState
-            ? state.selectedTabEnum
-            : PaymentsTabEnum.schedule;
+        final PaymentsTabEnum selectedTab =
+            state is PaymentsSuccessState
+                ? state.selectedTabEnum
+                : PaymentsTabEnum.schedule;
+
+        final PaymentsInfoModel paymentsInfo =
+            paymentsInfoEntity as PaymentsInfoModel;
+
         /// TODO(Ogai): Conferir o estado de refresh voltando para schedule
         emit(
           PaymentsSuccessState(

@@ -1,17 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:project_by_iago/src/core/base/constants/app_colors.dart';
 import 'package:project_by_iago/src/core/base/constants/app_text_styles.dart';
-import 'package:project_by_iago/src/core/utils/json_helper.dart';
+import 'package:project_by_iago/src/core/utils/helpers/json_helper.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
-import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_shimmer_box.dart';
 
-import '../../../../../core/utils/converter_helper.dart';
+import '../../../../../core/utils/helpers/converter_helper.dart';
 import '../../../domain/entity/payments_summary_entity.dart';
 
-class CustomSummaryCards extends StatelessWidget {
+class CustomSummaryCard extends StatelessWidget {
   final PaymentsState state;
 
-  const CustomSummaryCards({required this.state, super.key});
+  const CustomSummaryCard({required this.state, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class CustomSummaryCards extends StatelessWidget {
             : JsonHelper.getMockSummariesFromJson();
 
     return SizedBox(
-      height: 130,
+      height: 120,
       child: LayoutBuilder(
         builder: (context, constraints) {
           return ListView.separated(
@@ -35,7 +35,7 @@ class CustomSummaryCards extends StatelessWidget {
             separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (_, index) {
               return SizedBox(
-                width: constraints.maxWidth * 0.4,
+                width: constraints.maxWidth * 0.45,
                 child:
                     state is PaymentsLoadingState
                         ? _buildSkeletonCard(summaries[index])
@@ -47,24 +47,43 @@ class CustomSummaryCards extends StatelessWidget {
       ),
     );
   }
-/// TODO (Ogai): Conferir dados do card com figma
+
   Widget _buildContentCard(PaymentsSummaryEntity summary) {
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               summary.label,
-              style: AppTextStyles.get12w400(AppColors.grayFont),
+              style: AppTextStyles.get12w400(),
             ),
-            const SizedBox(height: 8),
-            Text(
-              ConverterHelper.currencyFormatter(summary.value),
-              style: AppTextStyles.get16w600(AppColors.blackFont),
+            const SizedBox(height: 4),
+            Text.rich(
+              TextSpan(
+                children: [
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.baseline,
+                    baseline: TextBaseline.alphabetic,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 2.0),
+                      child: Text(
+                        "\$",
+                        style: AppTextStyles.get10w400(AppColors.blackFont),
+                      ),
+                    ),
+                  ),
+                  TextSpan(
+                    text: ConverterHelper.thousandSeparatorFormatter(
+                      summary.value,
+                    ),
+                    style: AppTextStyles.get16w400(AppColors.blackFont),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -82,23 +101,8 @@ class CustomSummaryCards extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(summary.label, style: AppTextStyles.get12w400()),
-            _shimmerBox(height: 20, width: 100),
+            CustomShimmerBox(),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _shimmerBox({required double height, required double width}) {
-    return Shimmer.fromColors(
-      baseColor: AppColors.gray,
-      highlightColor: AppColors.grayFont,
-      child: Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(6),
         ),
       ),
     );

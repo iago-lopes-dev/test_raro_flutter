@@ -3,9 +3,9 @@ import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_event.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart';
-import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_bottom_sheet_modal.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/widgets/modals/custom_bottom_sheet_modal.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/custom_tab_selector.dart';
-import 'package:project_by_iago/src/modules/payments/presentation/widgets/lists/schedule_list.dart';
+import 'package:project_by_iago/src/modules/payments/presentation/widgets/lists/scheduled_list.dart';
 import 'package:project_by_iago/src/modules/payments/presentation/widgets/lists/transactions_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -53,12 +53,12 @@ class _PaymentsPageState extends State<PaymentsPage> {
       child: BlocBuilder<PaymentsBloc, PaymentsState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: AppColors.white,
+            backgroundColor: AppColors.grayLight,
             appBar: _buildAppBar(state),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CustomSummaryCards(state: state),
+                CustomSummaryCard(state: state),
                 _buildCallToAction(),
                 const SizedBox(height: 16),
                 CustomTabSelector(
@@ -120,7 +120,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
 
   Widget _buildTabContent(PaymentsState state) {
     return state.isScheduleSelected
-        ? ScheduleList(state: state)
+        ? ScheduledList(state: state)
         : TransactionsList(state: state);
   }
 
