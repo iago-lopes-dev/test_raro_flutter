@@ -1,10 +1,9 @@
+import "package:flutter/material.dart";
 import "package:project_by_iago/src/core/base/constants/app_colors.dart";
 import "package:project_by_iago/src/core/base/constants/app_text_styles.dart";
 import "package:project_by_iago/src/core/utils/helpers/json_helper.dart";
+import "package:project_by_iago/src/modules/payments/data/data.dart";
 import "package:project_by_iago/src/modules/payments/presentation/bloc/payments_state.dart";
-import "package:flutter/material.dart";
-
-import "../../../domain/entity/payments_transactions_filter_entity.dart";
 
 class CustomBottomSheetModal extends StatefulWidget {
   final PaymentsState state;
@@ -25,9 +24,9 @@ class CustomBottomSheetModal extends StatefulWidget {
 }
 
 class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
-  late List<PaymentsTransactionFilterEntity> selected;
+  late List<PaymentsTransactionHeadersModel> selected;
 
-  final List<PaymentsTransactionFilterEntity> allFields =
+  final List<PaymentsTransactionHeadersModel> allFields =
       JsonHelper.getMockTransactionFiltersFromJson();
 
   @override
@@ -38,7 +37,6 @@ class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
     );
   }
 
-  ///TODO(Ogai): Conferir estado default do checkbox
   @override
   Widget build(BuildContext context) {
     return Column(

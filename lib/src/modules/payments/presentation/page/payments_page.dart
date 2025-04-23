@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/model/model.dart';
 import '../../data/repository/payment_repository_impl.dart';
 import '../../domain/usecase/get_payments_use_case.dart';
 import '../../infra/datasource/payments_datasource_impl.dart';
@@ -125,7 +126,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
   }
 
   void _showBottomSheet(BuildContext context, PaymentsState state) async {
-    final selectedFields = await showModalBottomSheet(
+    final List<PaymentsTransactionHeadersModel> selectedFields = await showModalBottomSheet(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       isDismissible: false,
@@ -138,8 +139,6 @@ class _PaymentsPageState extends State<PaymentsPage> {
       },
     );
 
-    if (selectedFields != null) {
-      bloc.add(UpdateVisibleTransactionFieldsEvent(selectedFields));
+    bloc.add(UpdateVisibleTransactionFieldsEvent(selectedFields));
     }
-  }
 }

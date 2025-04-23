@@ -53,10 +53,6 @@ class CustomScheduleCard extends StatelessWidget {
                           DateFormat(
                             'MM/dd/yyyy',
                           ).format(scheduled.paymentDate),
-                          // ConverterHelper.stringNullableToMMDDYYYY(
-                          // scheduled.paymentDate.toString(),
-                          // ConverterHelper.stringNullableToMMDDYYYY(scheduled.paymentDate),
-                          ///TODO(Ogai): Conferir adapter
                           style: AppTextStyles.get16w400(AppColors.blackFont),
                           overflow: TextOverflow.ellipsis,
                         ),
