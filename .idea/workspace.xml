@@ -10,22 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c832c45-8564-4b78-a267-9a467881b53b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/test/presentation/bloc/payments/payments_bloc_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/payments_bloc_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/core/utils/converter_helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/core/utils/converter_helper.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/bloc/payments_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/page/payments_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/page/payments_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_schedule_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_schedule_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_summary_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/cards/custom_transaction_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_shimmer_box.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/custom_shimmer_box.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/scheduled_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/scheduled_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/transactions_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/lists/transactions_list.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/modals/custom_bottom_sheet_modal.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/presentation/widgets/modals/custom_bottom_sheet_modal.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/app_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/app_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/modules/payments/infra/datasource/payments_datasource_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/modules/payments/infra/datasource/payments_datasource_impl.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/presentation/bloc/payments/payments_bloc_test.dart" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,11 +105,11 @@
       <recent name="D:\Repos\test_raro_iago\assets\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Repos\test_raro_iago\test" />
       <recent name="D:\Repos\test_raro_iago\lib\src\core\theme" />
       <recent name="D:\Repos\test_raro_iago\lib\src\core\utils" />
       <recent name="D:\Repos\test_raro_iago\lib\src\modules\payments\presentation\widgets\lists" />
       <recent name="D:\Repos\test_raro_iago\lib\src\modules\payments\presentation\widgets\buttons" />
-      <recent name="D:\Repos\test_raro_iago\lib\src\modules\payments\presentation\widgets\modals" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

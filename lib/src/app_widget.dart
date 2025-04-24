@@ -10,7 +10,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Test by Iago',
+      title: "Test by Iago",
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.blueBackground),
         useMaterial3: true,

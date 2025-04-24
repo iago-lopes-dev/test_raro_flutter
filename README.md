@@ -26,22 +26,93 @@ lib/
 └── src/
     ├── core/
     │   ├── base/
-    │   │   ├── constants/           # Constantes globais
-    │   │   ├── enums/               # Enums como PaymentTabEnum
-    │   │   ├── errors/              # Definições de erros genéricos
-    │   │   ├── interfaces/          # Interfaces genéricas (use cases, falhas, etc)
-    │   ├── theme/                   # Criado para centralizar cores e estilos de texto
-    │   ├── utils/                   # Funções auxiliares e extensões (como formatações de valores e datas)
-    │   └── core.dart                # Exportações unificadas do core
+    │   │   ├── constants/               # Constantes globais do projeto
+    │   │   │   ├── app_constants.dart
+    │   │   │   └── constants.dart
+    │   │   ├── enums/                   # Enums usados em todo o projeto
+    │   │   │   └── payment_tab_enum.dart
+    │   │   ├── errors/                  # Definições de erros e exceções
+    │   │   │   ├── errors.dart
+    │   │   │   └── infra_error.dart
+    │   │   ├── interfaces/              # Abstrações (usecases, repositórios, falhas)
+    │   │   │   ├── failures.dart
+    │   │   │   ├── usecase_interface.dart
+    │   │   │   └── interfaces.dart
+    │   │   └── base.dart
+    │   ├── theme/                       # Estilos globais da aplicação
+    │   │   ├── app_colors.dart
+    │   │   └── app_text_styles.dart
+    │   ├── utils/                       # Helpers, formatadores e extensões
+    │   │   ├── converter_helper.dart
+    │   │   ├── extensions.dart
+    │   │   └── utils.dart
+    │   └── core.dart                    # Exportações unificadas do core
     ├── modules/
     │   └── payments/
-    │       ├── data/                # Models e implementações de datasources/repositories
-    │       ├── domain/              # Entidades e contratos do negócio
-    │       ├── infra/               # Integrações com JSON mock ou APIs reais
-    │       └── presentation/        # UI: Blocs, páginas, widgets e modais
-    ├── app_widget.dart             # Widget principal da aplicação
-    └── main.dart                   # Ponto de entrada do app
-test/                               # Testes unitários
+    │       ├── data/                               # Models e implementações de datasources/repositories
+    │       │   ├── datasource/
+    │       │   │   ├── payments_datasource.dart
+    │       │   ├── model/
+    │       │   │   ├── payments_info_model.dart
+    │       │   │   ├── payments_scheduled_model.dart
+    │       │   │   ├── payments_summary_model.dart
+    │       │   │   ├── payments_transactions_model.dart
+    │       │   │   ├── payments_transactions_header_model.dart
+    │       │   │   └── model.dart
+    │       │   ├── repository/
+    │       │   │   ├── payment_repository_impl.dart
+    │       │   │   └── repository.dart
+    │       │   └── data.dart
+    │       ├── domain/                              # Entidades e contratos do negócio
+    │       │   ├── entity/
+    │       │   │   ├── payments_info_entity.dart
+    │       │   │   ├── payments_schedule_entity.dart
+    │       │   │   ├── payments_summary_entity.dart
+    │       │   │   ├── payments_transactions_entity.dart
+    │       │   │   ├── payments_transactions_filter_entity.dart
+    │       │   │   └── entity.dart
+    │       │   ├── repository/
+    │       │   │   ├── payment_repository.dart
+    │       │   │   └── repository.dart
+    │       │   ├── usecase/
+    │       │   │   ├── get_payments_use_case.dart
+    │       │   │   └── usecase.dart
+    │       │   └── domain.dart
+    │       ├── infra/                               # Integrações com JSON mock ou APIs reais
+    │       │   ├── datasource/
+    │       │   │   ├── payments_datasource_impl.dart
+    │       │   ├── mock/
+    │       │   │   └── payments_json.dart
+    │       │   └── infra.dart
+    │       ├── presentation/                        # UI: Blocs, páginas, widgets e modais
+    │       │   ├── bloc/
+    │       │   │   ├── payments_bloc.dart
+    │       │   │   ├── payments_event.dart
+    │       │   │   ├── payments_state.dart
+    │       │   │   └── payments_tab_changed_event.dart
+    │       │   ├── page/
+    │       │   │   └── payments_page.dart
+    │       │   ├── widgets/
+    │       │   │   ├── custom_app_bar.dart
+    │       │   │   ├── custom_shimmer_box.dart
+    │       │   │   ├── custom_tab_selector.dart
+    │       │   │   ├── buttons/
+    │       │   │   │   └── custom_tab_button.dart
+    │       │   │   ├── cards/
+    │       │   │   │   ├── custom_schedule_card.dart
+    │       │   │   │   ├── custom_summary_card.dart
+    │       │   │   │   └── custom_transaction_card.dart
+    │       │   │   ├── lists/
+    │       │   │   │   ├── scheduled_list.dart
+    │       │   │   │   ├── summaries_list.dart
+    │       │   │   │   └── transactions_list.dart
+    │       │   │   └── modals/
+    │       │   │       └── custom_bottom_sheet_modal.dart
+    ├── app_widget.dart                  # Widget principal da aplicação
+    └── main.dart                        # Ponto de entrada do app
+test/                            # Testes unitários
+├── payments_bloc_test.dart
+└── widget_test.dart
 ```
 
 ---
@@ -99,3 +170,11 @@ test/                               # Testes unitários
   que onPopInvokedWithResult esteja disponível em versão estável do Flutter.
 - Essa decisão foi tomada de forma consciente para preservar o comportamento da navegação com
   retorno de dados personalizados (selectedFilters), sem comprometer a funcionalidade.
+
+## Compatibilidade
+
+- Este aplicativo foi desenvolvido e testado exclusivamente em dispositivos Android.
+- A compatibilidade com iOS não foi validada. Algumas funcionalidades ou comportamentos visuais
+  podem não funcionar como esperado em dispositivos Apple.
+- Caso deseje rodar o app no iOS, recomenda-se revisar permissões, pacotes nativos e testes de
+  layout específicos.
