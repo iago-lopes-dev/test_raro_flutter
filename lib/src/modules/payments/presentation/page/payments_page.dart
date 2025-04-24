@@ -55,30 +55,32 @@ class _PaymentsPageState extends State<PaymentsPage> {
           return Scaffold(
             backgroundColor: AppColors.defaultBackground,
             appBar: CustomAppBar(title: "Payments"),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SummariesList(state: state),
-                _buildCallToAction(
-                  (state.paymentsInfo.paymentsScheduled.isNotEmpty ||
-                      state.paymentsInfo.transactions.isNotEmpty),
-                ),
-                const SizedBox(height: 16),
-                CustomTabSelector(
-                  state: state,
-                  onMorePressed: () => _showBottomSheet(context, state),
-                ),
-                const SizedBox(height: 8),
-                Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: _refresh,
-                    child:
-                        state.isScheduleSelected
-                            ? ScheduledList(state: state)
-                            : TransactionsList(state: state),
+            body: RefreshIndicator(
+              onRefresh: _refresh,
+              child: CustomScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                slivers: [
+                  SliverToBoxAdapter(child: SummariesList(state: state)),
+                  SliverToBoxAdapter(
+                    child: _buildCallToAction(
+                      state.paymentsInfo.paymentsScheduled.isNotEmpty ||
+                          state.paymentsInfo.transactions.isNotEmpty,
+                    ),
                   ),
-                ),
-              ],
+                  const SliverToBoxAdapter(child: SizedBox(height: 16)),
+                  SliverToBoxAdapter(
+                    child: CustomTabSelector(
+                      state: state,
+                      onMorePressed: () => _showBottomSheet(context, state),
+                    ),
+                  ),
+                  const SliverToBoxAdapter(child: SizedBox(height: 8)),
+                  state.isScheduleSelected
+                      ? ScheduledList(state: state)
+                      : TransactionsList(state: state),
+                  const SliverToBoxAdapter(child: SizedBox(height: 24)),
+                ],
+              ),
             ),
           );
         },

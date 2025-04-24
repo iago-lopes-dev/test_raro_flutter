@@ -20,30 +20,37 @@ class ScheduledList extends StatelessWidget {
     if (state.paymentsInfo.paymentsScheduled.isEmpty ||
         state is PaymentsInitialState ||
         state is PaymentsErrorState) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-        child: Text(
-          "Once your loan is booked your payment schedule will appear here. This process may take 1-2 business days.",
-          textAlign: TextAlign.center,
-          style: AppTextStyles.get14w400italic(),
+      return SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+          child: Text(
+            "Once your loan is booked your payment schedule will appear here. This process may take 1-2 business days.",
+            textAlign: TextAlign.center,
+            style: AppTextStyles.get14w400italic(),
+          ),
         ),
       );
     }
 
     final PaymentsScheduleEntity nextPaymentItem =
-    paymentsScheduled.getNextPayment();
+        paymentsScheduled.getNextPayment();
 
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      itemCount: paymentsScheduled.length,
-      itemBuilder: (_, index) {
-        final bool isNextPayment = paymentsScheduled[index] == nextPaymentItem;
-        return CustomScheduleCard(
-          scheduled: paymentsScheduled[index],
-          isLoading: isLoading,
-          isNextPayment: isNextPayment,
-        );
-      },
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        childCount: paymentsScheduled.length,
+        (context, index) {
+          final bool isNextPayment =
+              paymentsScheduled[index] == nextPaymentItem;
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: CustomScheduleCard(
+              scheduled: paymentsScheduled[index],
+              isLoading: isLoading,
+              isNextPayment: isNextPayment,
+            ),
+          );
+        },
+      ),
     );
   }
 }

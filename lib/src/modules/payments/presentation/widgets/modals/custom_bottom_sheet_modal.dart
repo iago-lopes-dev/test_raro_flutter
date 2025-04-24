@@ -42,76 +42,85 @@ class _CustomBottomSheetModalState extends State<CustomBottomSheetModal> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height,
-            minHeight: 0,
-          ),
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-            top: 100,
-          ),
-          child: Container(
-            padding: widget.padding,
-            decoration: BoxDecoration(
-              color: widget.color ?? AppColors.white,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(24.0),
-                topLeft: Radius.circular(24.0),
-              ),
+    return PopScope(
+      canPop: false,
+      // ignore: deprecated_member_use
+      onPopInvoked: (didPop) {
+        if (!didPop) {
+          Navigator.pop(context, selectedFilters);
+        }
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height,
+              minHeight: 0,
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox.fromSize(size: Size(10, 10)),
-                  buildHeader(),
-                  SizedBox.fromSize(size: Size(10, 10)),
-                  Column(
-                    children:
-                        allFilters
-                            .map(
-                              (filter) => CheckboxListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                                value: selectedFilters.any(
-                                  (f) => f.label == filter.label,
-                                ),
-                                enabled: !filter.isDefault,
-                                activeColor: AppColors.green,
-                                checkColor: AppColors.white,
-                                title: Text(
-                                  filter.label,
-                                  style: AppTextStyles.get16w400(),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (value == true) {
-                                      if (!selectedFilters.any(
-                                        (f) => f.label == filter.label,
-                                      )) {
-                                        selectedFilters.add(filter);
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+              top: 100,
+            ),
+            child: Container(
+              padding: widget.padding,
+              decoration: BoxDecoration(
+                color: widget.color ?? AppColors.white,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(24.0),
+                  topLeft: Radius.circular(24.0),
+                ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox.fromSize(size: Size(10, 10)),
+                    buildHeader(),
+                    SizedBox.fromSize(size: Size(10, 10)),
+                    Column(
+                      children:
+                          allFilters
+                              .map(
+                                (filter) => CheckboxListTile(
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  value: selectedFilters.any(
+                                    (f) => f.label == filter.label,
+                                  ),
+                                  enabled: !filter.isDefault,
+                                  activeColor: AppColors.green,
+                                  checkColor: AppColors.white,
+                                  title: Text(
+                                    filter.label,
+                                    style: AppTextStyles.get16w400(),
+                                  ),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if (value == true) {
+                                        if (!selectedFilters.any(
+                                          (f) => f.label == filter.label,
+                                        )) {
+                                          selectedFilters.add(filter);
+                                        }
+                                      } else {
+                                        selectedFilters.removeWhere(
+                                          (f) => f.label == filter.label,
+                                        );
                                       }
-                                    } else {
-                                      selectedFilters.removeWhere(
-                                        (f) => f.label == filter.label,
-                                      );
-                                    }
-                                  });
-                                },
-                              ),
-                            )
-                            .toList(),
-                  ),
-                ],
+                                    });
+                                  },
+                                ),
+                              )
+                              .toList(),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

@@ -61,8 +61,9 @@ test/                               # Testes unitários
    ```bash
    flutter run
 
-Para rodar os testes unitários:
-flutter test
+4. **Rode os testes unitários:**
+   ```bash
+   flutter test
 
 ## Tecnologias Utilizadas
 
@@ -90,7 +91,11 @@ flutter test
   corretamente os dados, garantindo que a interface funcione sem erros e que o usuário tenha uma
   experiência fluida mesmo com diferentes versões do backend.
 
-## Observações
+## Observações Técnicas
 
 - A estrutura de temas, estilos de texto e cores foi criada do zero.
 - Fallbacks foram adicionados em models críticos para prevenir quebras caso a API mude.
+- PopScope.onPopInvoked está sendo usado com // ignore: deprecated_member_use temporariamente, até
+  que onPopInvokedWithResult esteja disponível em versão estável do Flutter.
+- Essa decisão foi tomada de forma consciente para preservar o comportamento da navegação com
+  retorno de dados personalizados (selectedFilters), sem comprometer a funcionalidade.

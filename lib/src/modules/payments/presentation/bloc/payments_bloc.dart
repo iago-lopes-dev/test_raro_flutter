@@ -56,21 +56,10 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
         final PaymentsInfoModel paymentsInfo =
             paymentsInfoEntity as PaymentsInfoModel;
 
-        _visibleTransactionFields =
-            previousVisibleFields.isNotEmpty
-                ? previousVisibleFields
-                : paymentsInfoEntity.transactionFilter
-                    .where((e) => e.isDefault)
-                    .toList()
-                    .map(
-                      (e) => PaymentsTransactionHeadersModel(
-                        key: e.key,
-                        label: e.label,
-                        isDefault: e.isDefault,
-                      ),
-                    )
-                    .toList();
-
+        _visibleTransactionFields = _buildVisibleFields(
+          paymentsInfoEntity,
+          previousVisibleFields,
+        );
         emit(
           PaymentsSuccessState(
             paymentsInfo: paymentsInfo,
@@ -80,6 +69,24 @@ class PaymentsBloc extends Bloc<PaymentsEvent, PaymentsState> {
         );
       },
     );
+  }
+
+  List<PaymentsTransactionFilterEntity> _buildVisibleFields(
+    PaymentsInfoEntity entity,
+    List<PaymentsTransactionFilterEntity> filters,
+  ) {
+    if (filters.isNotEmpty) return filters;
+
+    return entity.transactionFilter
+        .where((e) => e.isDefault)
+        .map(
+          (e) => PaymentsTransactionHeadersModel(
+            key: e.key,
+            label: e.label,
+            isDefault: e.isDefault,
+          ),
+        )
+        .toList();
   }
 
   Future<void> _onUpdateVisibleFields(

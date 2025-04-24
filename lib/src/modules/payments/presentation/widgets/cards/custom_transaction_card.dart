@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:project_by_iago/src/core/theme/app_colors.dart';
 import 'package:project_by_iago/src/core/theme/app_text_styles.dart';
@@ -39,21 +40,57 @@ class CustomTransactionCard extends StatelessWidget {
               ),
               itemCount: visibleFields.length,
               itemBuilder: (_, index) {
-                    !isLoading ? cardItems[visibleFields[index].key] : "";
+                !isLoading ? cardItems[visibleFields[index].key] : "";
+                final Tuple2<bool, String> result =
+                    ConverterHelper.getFormattedTransactionValue(
+                      transaction,
+                      visibleFields[index].key,
+                    );
+
+                final bool isMoney = result.value1;
+                final String valueText = result.value2;
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       visibleFields[index].label,
                       style: AppTextStyles.get12w400(),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    !isLoading
+                    isLoading
+                        ? CustomShimmerBox(width: 120)
+                        : !isMoney
                         ? Text(
-                      ConverterHelper.getFormattedTransactionValue(transaction, visibleFields[index].key),
-                          // value,
+                          valueText,
                           style: AppTextStyles.get16w400(AppColors.blackFont),
+                          overflow: TextOverflow.ellipsis,
                         )
-                        : CustomShimmerBox(width: 140),
+                        : Text.rich(
+                          TextSpan(
+                            children: [
+                              WidgetSpan(
+                                child: Transform.translate(
+                                  offset: const Offset(0, -4),
+                                  child: Text(
+                                    "\$",
+                                    style: AppTextStyles.get10w400(
+                                      AppColors.blackFont,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              TextSpan(
+                                text:
+                                    ConverterHelper.thousandSeparatorFormatter(
+                                      double.parse(valueText),
+                                    ),
+                                style: AppTextStyles.get16w400(
+                                  AppColors.blackFont,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                   ],
                 );
               },

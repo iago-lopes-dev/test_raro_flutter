@@ -29,18 +29,12 @@ class CustomScheduleCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child:
             isLoading
-                ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(
-                    1,
-                    (_) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [CustomShimmerBox(), CustomShimmerBox()],
-                      ),
-                    ),
-                  ),
+                ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomShimmerBox(width: 120),
+                    CustomShimmerBox(width: 120),
+                  ],
                 )
                 : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,10 +55,8 @@ class CustomScheduleCard extends StatelessWidget {
                           TextSpan(
                             children: [
                               WidgetSpan(
-                                alignment: PlaceholderAlignment.baseline,
-                                baseline: TextBaseline.alphabetic,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 2.0),
+                                child: Transform.translate(
+                                  offset: const Offset(0, -4),
                                   child: Text(
                                     "\$",
                                     style: AppTextStyles.get10w400(

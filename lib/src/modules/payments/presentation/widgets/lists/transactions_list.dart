@@ -21,26 +21,32 @@ class TransactionsList extends StatelessWidget {
     if (state.paymentsInfo.transactions.isEmpty ||
         state is PaymentsInitialState ||
         state is PaymentsErrorState) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
-        child: Text(
-          "Once you begin your payments they will appear here. This process may take 1-2 business days.",
-          textAlign: TextAlign.center,
-          style: AppTextStyles.get14w400italic(),
+      return SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+          child: Text(
+            "Once you begin your payments they will appear here. This process may take 1-2 business days.",
+            textAlign: TextAlign.center,
+            style: AppTextStyles.get14w400italic(),
+          ),
         ),
       );
     }
 
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      itemCount: transactions.length,
-      itemBuilder: (_, index) {
-        return CustomTransactionCard(
-          transaction: transactions[index],
-          visibleFields: visibleFields,
-          isLoading: isLoading,
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(childCount: transactions.length, (
+        context,
+        index,
+      ) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: CustomTransactionCard(
+            transaction: transactions[index],
+            visibleFields: visibleFields,
+            isLoading: isLoading,
+          ),
         );
-      },
+      }),
     );
   }
 }

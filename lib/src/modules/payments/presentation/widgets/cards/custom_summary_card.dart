@@ -10,26 +10,15 @@ class CustomSummaryCard extends StatelessWidget {
   final PaymentsSummaryEntity summary;
   final bool isLoading;
 
-  const CustomSummaryCard(
-      {required this.summary, required this.isLoading, super.key});
+  const CustomSummaryCard({
+    required this.summary,
+    required this.isLoading,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(summary.label, style: AppTextStyles.get12w400()),
-            CustomShimmerBox(),
-          ],
-        ),
-      ),
-    ) :
-    Card(
+    return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: Container(
@@ -37,31 +26,35 @@ class CustomSummaryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(summary.label, style: AppTextStyles.get12w400()),
-            const SizedBox(height: 4),
-            Text.rich(
-              TextSpan(
-                children: [
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.baseline,
-                    baseline: TextBaseline.alphabetic,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 2.0),
-                      child: Text(
-                        "\$",
-                        style: AppTextStyles.get10w400(AppColors.blackFont),
-                      ),
-                    ),
-                  ),
-                  TextSpan(
-                    text: ConverterHelper.thousandSeparatorFormatter(
-                      summary.value,
-                    ),
-                    style: AppTextStyles.get16w400(AppColors.blackFont),
-                  ),
-                ],
-              ),
+            Text(
+              summary.label,
+              style: AppTextStyles.get12w400(),
+              overflow: TextOverflow.ellipsis,
             ),
+            const SizedBox(height: 4),
+            isLoading
+                ? CustomShimmerBox()
+                : Text.rich(
+                  TextSpan(
+                    children: [
+                      WidgetSpan(
+                        child: Transform.translate(
+                          offset: const Offset(0, -4),
+                          child: Text(
+                            "\$",
+                            style: AppTextStyles.get10w400(AppColors.blackFont),
+                          ),
+                        ),
+                      ),
+                      TextSpan(
+                        text: ConverterHelper.thousandSeparatorFormatter(
+                          summary.value,
+                        ),
+                        style: AppTextStyles.get16w400(AppColors.blackFont),
+                      ),
+                    ],
+                  ),
+                ),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:intl/intl.dart';
 
 import '../../modules/payments/domain/entity/entity.dart';
@@ -22,25 +23,39 @@ class ConverterHelper {
     return DateFormat('MM/dd/yyyy').format(inputDate);
   }
 
-  static String currencyFormatter(double value, [String replacedSymbol = '--']) {
+  static String currencyFormatter(
+    double value, [
+    String replacedSymbol = '--',
+  ]) {
     if (value == 0.0) return replacedSymbol;
     final bool isWholeNumber = value % 1 == 0;
-    final String formattedValue = isWholeNumber ? value.toInt().toString() : value.toStringAsFixed(2);
+    final String formattedValue =
+        isWholeNumber ? value.toInt().toString() : value.toStringAsFixed(2);
     return '\$$formattedValue';
   }
 
-  static String thousandSeparatorFormatter(double value, [String replacedSymbol = '--']) {
+  static String thousandSeparatorFormatter(
+    double value, [
+    String replacedSymbol = '--',
+  ]) {
     if (value == 0.0) return replacedSymbol;
-    final NumberFormat formatter = NumberFormat.currency(locale: 'en_US', symbol: '');
+    final NumberFormat formatter = NumberFormat.currency(
+      locale: 'en_US',
+      symbol: '',
+    );
     return formatter.format(value).trim();
   }
 
-  static String getFormattedTransactionValue(PaymentsTransactionsEntity transaction, String key) {
+  static Tuple2<bool, String> getFormattedTransactionValue(
+    PaymentsTransactionsEntity transaction,
+    String key,
+  ) {
     final value = switch (key) {
       'actualPaymentPostDate' => transaction.actualPaymentPostDate,
       'processDate' => transaction.processDate,
       'actualPaymentAmount' => transaction.actualPaymentAmount,
-      'actualPrincipalPaymentAmount' => transaction.actualPrincipalPaymentAmount,
+      'actualPrincipalPaymentAmount' =>
+        transaction.actualPrincipalPaymentAmount,
       'actualInterestPaymentAmount' => transaction.actualInterestPaymentAmount,
       'outstandingPrincipalBalance' => transaction.outstandingPrincipalBalance,
       'outstandingLoanBalance' => transaction.outstandingLoanBalance,
@@ -49,17 +64,18 @@ class ConverterHelper {
       _ => null,
     };
 
-    if (value == null) return '--';
+    if (value == null) return Tuple2(false, '--');
 
     if (value is DateTime) {
-      return ConverterHelper.stringNullableToMMDDYYYY(value.toIso8601String());
+      return Tuple2(
+        false,
+        ConverterHelper.stringNullableToMMDDYYYY(value.toIso8601String()),
+      );
     }
 
     if (value is double) {
-      if (value == 0.0) return '--';
-      return "\$${ConverterHelper.thousandSeparatorFormatter(value)}";
+      return Tuple2(true, value.toString());
     }
-
-    return value.toString();
+    return Tuple2(false, value.toString());
   }
 }

@@ -40,18 +40,6 @@ class PaymentsLoadingState extends PaymentsState {
     required super.visibleTransactionFields,
     required super.selectedTabEnum,
   });
-  PaymentsSuccessState copyWith({
-    PaymentsInfoEntity? paymentsInfo,
-    List<PaymentsTransactionFilterEntity>? visibleTransactionFields,
-    PaymentsTabEnum? selectedTabEnum,
-  }) {
-    return PaymentsSuccessState(
-      paymentsInfo: paymentsInfo ?? this.paymentsInfo,
-      visibleTransactionFields:
-      visibleTransactionFields ?? this.visibleTransactionFields,
-      selectedTabEnum: selectedTabEnum ?? this.selectedTabEnum,
-    );
-  }
 }
 
 class PaymentsSuccessState extends PaymentsState {
